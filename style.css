@@ -290,17 +290,54 @@ body {
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
-    #title-screen h1 {
-        font-size: 2.5rem;
+    /* モバイルではスクロール可能にする */
+    body {
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     
-    #title-screen .subtitle {
-        font-size: 1.2rem;
+    #game-container {
+        overflow: visible;
+        min-height: 100vh;
+        height: auto;
+        display: flex;
+        flex-direction: column;
     }
     
+    /* 背景は固定表示 */
+    #background {
+        position: fixed;
+        height: 100vh;
+        z-index: 0;
+    }
+    
+    /* キャラクターも固定表示で、より小さく上部に配置 */
+    #character {
+        position: fixed;
+        width: 50%;
+        height: 35vh;
+        max-height: 35vh;
+        bottom: auto;
+        top: 5vh;
+        z-index: 1;
+    }
+    
+    /* スペーサーを使って背景とキャラクターを表示するエリアを確保 */
+    #game-container::before {
+        content: '';
+        display: block;
+        height: 45vh;
+        flex-shrink: 0;
+    }
+    
+    /* テキストボックスを相対配置に変更 */
     #text-box {
+        position: relative;
+        bottom: auto;
+        min-height: auto;
         padding: 15px 20px;
-        min-height: 140px;
+        z-index: 10;
+        flex-shrink: 0;
     }
     
     #text-content {
@@ -308,21 +345,33 @@ body {
         line-height: 1.6;
     }
     
+    /* 選択肢ボックスをテキストボックスの下に配置 */
+    #choice-box {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 90%;
+        max-width: none;
+        margin: 20px auto 40px auto;
+        padding-bottom: 20px;
+        z-index: 10;
+    }
+    
     .choice-button {
         padding: 15px 20px;
         font-size: 1rem;
     }
     
-    #character {
-        width: 60%;
-        bottom: 140px;
-        height: calc(100% - 200px);
-        max-height: 60%;
-    }
-    
     .menu-btn {
         padding: 6px 10px;
         font-size: 0.75rem;
+    }
+    
+    /* メニューボタンは固定位置を維持 */
+    #menu-buttons {
+        position: fixed;
+        z-index: 100;
     }
     
     /* モバイルでのボタンサイズ調整 */
@@ -332,10 +381,12 @@ body {
         margin: 8px;
     }
     
-    /* 選択肢ボックスの位置をより上に */
-    #choice-box {
-        top: 40%;
-        max-width: 90%;
+    #title-screen h1 {
+        font-size: 2.5rem;
+    }
+    
+    #title-screen .subtitle {
+        font-size: 1.2rem;
     }
 }
 
