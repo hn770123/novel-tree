@@ -1,8 +1,14 @@
 # 目覚めの部屋 - セルフセラピーノベル
 
+## 🎮 今すぐプレイ
+
+**GitHub Pagesでプレイできます**: [https://hn770123.github.io/novel-tree/](https://hn770123.github.io/novel-tree/)
+
+ブラウザで今すぐプレイ可能！インストール不要です。
+
 ## 概要
 
-「目覚めの部屋」は、プレイヤーが自分自身の深層心理と向き合うセルフセラピー型ノベルゲームのシナリオです。
+「目覚めの部屋」は、プレイヤーが自分自身の深層心理と向き合うセルフセラピー型ノベルゲームです。
 
 ### ストーリー
 
@@ -39,12 +45,20 @@
 
 ```
 novel-tree/
-├── README.md                  # このファイル
+├── index.html                 # メインHTMLファイル（ゲームエントリーポイント）
+├── style.css                  # スタイルシート
+├── game-engine.js             # ゲームエンジン本体
 ├── scenario.json              # メインシナリオファイル
+├── GAME_MANUAL.md             # ゲーム操作マニュアル
+├── README.md                  # このファイル
 ├── SCENARIO_STRUCTURE.md      # シナリオ構造の詳細説明
 ├── SCENARIO_FLOWCHART.md      # シナリオフローチャート（視覚的な分岐図）
 ├── validate_scenario.py       # シナリオ検証スクリプト
-└── visualize_scenario.py      # シナリオ視覚化スクリプト
+├── visualize_scenario.py      # シナリオ視覚化スクリプト
+├── *.JPG                      # 背景・キャラクター画像
+└── .github/
+    └── workflows/
+        └── deploy.yml         # GitHub Pages自動デプロイ
 ```
 
 ## シナリオファイルの構造
@@ -159,9 +173,29 @@ JSON形式でノベルゲームのシナリオを定義しています。
 
 ## 使用方法
 
-### 1. ノベルゲームエンジンでの読み込み
+### 1. Webブラウザでプレイ（推奨）
 
-このシナリオファイルは、以下のようなノベルゲームエンジンで使用できます：
+**GitHub Pages**: [https://hn770123.github.io/novel-tree/](https://hn770123.github.io/novel-tree/)
+
+インストール不要で、すぐにプレイできます！
+
+**ローカルでのプレイ方法**:
+```bash
+# リポジトリをクローン
+git clone https://github.com/hn770123/novel-tree.git
+cd novel-tree
+
+# 簡易サーバーを起動
+python3 -m http.server 8000
+
+# ブラウザで http://localhost:8000 を開く
+```
+
+操作方法の詳細は [GAME_MANUAL.md](GAME_MANUAL.md) を参照してください。
+
+### 2. 他のノベルゲームエンジンでの読み込み
+
+シナリオファイル（scenario.json）は、以下のようなエンジンでも使用できます：
 
 - Ren'Py（変換が必要）
 - TyranoScript（変換が必要）
