@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>目覚めの部屋 - セルフセラピーノベル</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ゲーム画面 -->
+    <div id="game-container">
+        <!-- 背景画像 -->
+        <div id="background"></div>
+        
+        <!-- キャラクター画像 -->
+        <div id="character"></div>
+        
+        <!-- テキストボックス -->
+        <div id="text-box">
+            <div id="speaker-name"></div>
+            <div id="text-content"></div>
+            <div id="continue-indicator">▼</div>
+        </div>
+        
+        <!-- 選択肢ボックス -->
+        <div id="choice-box"></div>
+        
+        <!-- タイトル画面 -->
+        <div id="title-screen">
+            <h1>目覚めの部屋</h1>
+            <p class="subtitle">セルフセラピーノベル</p>
+            <button id="start-button" class="menu-button">はじめる</button>
+            <div class="game-info">
+                <p>推定プレイ時間：10〜15分</p>
+                <p>すべての選択肢に正解・不正解はありません</p>
+                <p>あなたの心のままに、お選びください</p>
+            </div>
+        </div>
+        
+        <!-- メニューボタン -->
+        <div id="menu-buttons">
+            <button id="auto-button" class="menu-btn" title="オート">AUTO</button>
+            <button id="skip-button" class="menu-btn" title="スキップ">SKIP</button>
+            <button id="save-button" class="menu-btn" title="セーブ">SAVE</button>
+            <button id="load-button" class="menu-btn" title="ロード">LOAD</button>
+            <button id="title-button" class="menu-btn" title="タイトルへ">TITLE</button>
+        </div>
+        
+        <!-- セーブ/ロード画面 -->
+        <div id="save-load-screen" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2 id="save-load-title">セーブ</h2>
+                <div id="save-slots"></div>
+                <button id="close-save-load" class="menu-button">閉じる</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ゲームエンジン -->
+    <script src="game-engine.js"></script>
+</body>
+</html>
