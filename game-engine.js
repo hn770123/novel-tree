@@ -65,6 +65,8 @@ class NovelGameEngine {
     constructor() {
         this.state = new GameState();
         this.isReady = false;
+        // 画像フォーマットの設定（拡張子）
+        this.imageFormat = 'JPG';
         this.initElements();
         this.loadScenario();
     }
@@ -190,7 +192,7 @@ class NovelGameEngine {
      * 背景画像を設定
      */
     setBackground(backgroundId) {
-        const imagePath = `${backgroundId}.JPG`;
+        const imagePath = `${backgroundId}.${this.imageFormat}`;
         this.elements.background.style.backgroundImage = `url('${imagePath}')`;
     }
 
@@ -198,7 +200,7 @@ class NovelGameEngine {
      * キャラクター画像を設定
      */
     setCharacter(characterId) {
-        const imagePath = `${characterId}.JPG`;
+        const imagePath = `${characterId}.${this.imageFormat}`;
         this.elements.character.style.backgroundImage = `url('${imagePath}')`;
         this.elements.character.style.opacity = '1';
     }
@@ -435,9 +437,11 @@ class NovelGameEngine {
      */
     returnToTitle() {
         if (confirm('タイトルに戻りますか？\n（進行状況は失われます）')) {
+            // シナリオデータを保持
+            const scenario = this.state.scenario;
             // ゲーム状態をリセット
             this.state = new GameState();
-            this.state.scenario = this.state.scenario || this.state.scenario;
+            this.state.scenario = scenario;
             
             // タイトル画面を表示
             this.elements.titleScreen.style.display = 'flex';
