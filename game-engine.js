@@ -63,6 +63,11 @@ class GameState {
 
 // ゲームエンジン本体
 class NovelGameEngine {
+    // レスポンシブデザインのブレークポイント（CSSのメディアクエリと一致）
+    static MOBILE_BREAKPOINT = 768;
+    // スクロール遅延時間（ミリ秒）
+    static SCROLL_DELAY_MS = 100;
+
     constructor() {
         this.state = new GameState();
         this.isReady = false;
@@ -155,11 +160,11 @@ class NovelGameEngine {
 
         // モバイルビューではテキストボックスエリアを下にスクロール
         // デスクトップビューではページ全体を上にスクロール
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= NovelGameEngine.MOBILE_BREAKPOINT) {
             // テキストボックスエリアを下にスクロール（読み進めるため）
             setTimeout(() => {
                 this.elements.textBox.scrollTop = this.elements.textBox.scrollHeight;
-            }, 100);
+            }, NovelGameEngine.SCROLL_DELAY_MS);
         } else {
             // デスクトップではページ全体を上にスクロール
             window.scrollTo(0, 0);
