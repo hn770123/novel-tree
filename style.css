@@ -318,29 +318,31 @@ body {
         -webkit-overflow-scrolling: touch;
     }
     
-    /* 背景は固定表示 */
+    /* 背景は固定表示 - サイズを小さくして全体が見えるように */
     #background {
         position: fixed;
-        height: 100vh;
+        height: 40vh;
+        background-size: contain;
+        background-position: center top;
         z-index: 0;
     }
     
-    /* キャラクターも固定表示で、より小さく上部に配置 */
+    /* キャラクターも固定表示で、より小さく配置してイラスト全体を表示 */
     #character {
         position: fixed;
-        width: 50%;
-        height: 35vh;
-        max-height: 35vh;
+        width: 40%;
+        height: 25vh;
+        max-height: 25vh;
         bottom: auto;
-        top: 5vh;
+        top: 15vh;
         z-index: 1;
     }
     
-    /* スペーサーを使って背景とキャラクターを表示するエリアを確保 */
+    /* スペーサーを使って背景とキャラクターを表示するエリアを確保 - 高さを調整 */
     #game-container::before {
         content: '';
         display: block;
-        height: 45vh;
+        height: 42vh;
         flex-shrink: 0;
     }
     

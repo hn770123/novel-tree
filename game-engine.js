@@ -153,6 +153,9 @@ class NovelGameEngine {
             return;
         }
 
+        // スクロール位置を一番上にリセット（シナリオ進行時に常に画面上部から表示）
+        window.scrollTo(0, 0);
+
         // ノードを訪問済みとしてマーク
         this.state.visitNode(this.state.currentNodeId);
 
