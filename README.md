@@ -42,7 +42,9 @@ novel-tree/
 ├── README.md                  # このファイル
 ├── scenario.json              # メインシナリオファイル
 ├── SCENARIO_STRUCTURE.md      # シナリオ構造の詳細説明
-└── SCENARIO_FLOWCHART.md      # シナリオフローチャート（視覚的な分岐図）
+├── SCENARIO_FLOWCHART.md      # シナリオフローチャート（視覚的な分岐図）
+├── validate_scenario.py       # シナリオ検証スクリプト
+└── visualize_scenario.py      # シナリオ視覚化スクリプト
 ```
 
 ## シナリオファイルの構造
