@@ -9,8 +9,6 @@ body {
     font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
     overflow: hidden;
     background-color: #000;
-    /* モバイルでのスクロールを有効化 */
-    -webkit-overflow-scrolling: touch;
 }
 
 /* ゲームコンテナ */
@@ -240,8 +238,6 @@ body {
     max-width: 600px;
     max-height: 80vh;
     overflow-y: auto;
-    /* モバイルでのスムーズスクロール */
-    -webkit-overflow-scrolling: touch;
 }
 
 .modal-content h2 {
