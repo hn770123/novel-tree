@@ -1,0 +1,395 @@
+{
+  "title": "目覚めの部屋 - セルフセラピーノベル",
+  "description": "深層心理と向き合うセルフセラピー型ノベルゲーム",
+  "startNode": "opening",
+  "nodes": {
+    "opening": {
+      "id": "opening",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "目が覚めると、そこは真っ白な空間だった。\n床も壁も天井も、すべてが白く染まっている。\n不思議と恐怖は感じない。むしろ、どこか懐かしいような気がする。",
+      "background": "white_room",
+      "next": "meet_therapist"
+    },
+    "meet_therapist": {
+      "id": "meet_therapist",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "目の前には、黒髪に黒いスーツを着た眼鏡の男性が立っている。\n彼の表情は笑顔のようでいて、どこか感情を感じさせない。\nまるで、鏡のような存在だ。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "therapist_greeting"
+    },
+    "therapist_greeting": {
+      "id": "therapist_greeting",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "ようこそ。ここはあなたの心の中です。\n私はあなたのガイド役。あなた自身を映す鏡のような存在だと思ってください。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "first_question_intro"
+    },
+    "first_question_intro": {
+      "id": "first_question_intro",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "少しお話をしましょう。あなたのことを、あなた自身がもっと知るために。\n焦る必要はありません。ゆっくりと、心のままに答えてください。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "question_color"
+    },
+    "question_color": {
+      "id": "question_color",
+      "type": "choice",
+      "speaker": "セラピスト",
+      "text": "まず、お聞きします。\n今、あなたの心に浮かぶ色は何色ですか？",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "暖かいオレンジ色",
+          "next": "response_color_warm",
+          "flag": "warm_color"
+        },
+        {
+          "text": "冷たい青色",
+          "next": "response_color_cool",
+          "flag": "cool_color"
+        },
+        {
+          "text": "優しい緑色",
+          "next": "response_color_nature",
+          "flag": "nature_color"
+        },
+        {
+          "text": "何も思い浮かばない",
+          "next": "response_color_none",
+          "flag": "no_color"
+        }
+      ]
+    },
+    "response_color_warm": {
+      "id": "response_color_warm",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "オレンジ色ですか。暖かさを求めている心。\nあるいは、誰かとの繋がりを大切にする心。そんな気がしますね。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "question_place"
+    },
+    "response_color_cool": {
+      "id": "response_color_cool",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "青色ですか。静けさを求める心。\n自分と向き合いたい、そんな気持ちを感じます。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "question_place"
+    },
+    "response_color_nature": {
+      "id": "response_color_nature",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "緑色ですか。バランスを大切にする心。\n調和を求める、優しい気持ちが伝わってきます。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "question_place"
+    },
+    "response_color_none": {
+      "id": "response_color_none",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "それも一つの答えです。\n今はまだ、自分の気持ちが掴めない。それでいいのです。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "question_place"
+    },
+    "question_place": {
+      "id": "question_place",
+      "type": "choice",
+      "speaker": "セラピスト",
+      "text": "では、次の質問です。\nもし、どこへでも行けるとしたら、どんな場所に行きたいですか？",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "静かな図書館",
+          "next": "response_place_library",
+          "flag": "introverted"
+        },
+        {
+          "text": "賑やかなお祭り",
+          "next": "response_place_festival",
+          "flag": "extroverted"
+        },
+        {
+          "text": "広い海辺",
+          "next": "response_place_sea",
+          "flag": "freedom_seeking"
+        },
+        {
+          "text": "小さな部屋",
+          "next": "response_place_room",
+          "flag": "safety_seeking"
+        }
+      ]
+    },
+    "response_place_library": {
+      "id": "response_place_library",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "図書館ですか。知識、静寂、そして自分だけの時間。\nあなたは今、心を落ち着ける場所を求めているのかもしれませんね。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "memory_trigger_book"
+    },
+    "response_place_festival": {
+      "id": "response_place_festival",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "お祭りですか。活気、笑顔、そして人々の温もり。\nあなたは今、誰かと喜びを分かち合いたいのかもしれませんね。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "memory_trigger_festival"
+    },
+    "response_place_sea": {
+      "id": "response_place_sea",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "海辺ですか。広大な景色、自由な風、そして無限の可能性。\nあなたは今、心を解き放ちたいと感じているのかもしれませんね。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "memory_trigger_sea"
+    },
+    "response_place_room": {
+      "id": "response_place_room",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "小さな部屋ですか。安心、安全、そして自分だけの居場所。\nあなたは今、心の拠り所を求めているのかもしれませんね。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "memory_trigger_room"
+    },
+    "memory_trigger_book": {
+      "id": "memory_trigger_book",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉を聞いていると、ふと本の匂いを思い出した。\n誰かが読んでくれた物語。温かい声。優しい時間。\nそれは、あなたを守ってくれた大切な記憶。",
+      "background": "memory_blur",
+      "next": "question_feeling"
+    },
+    "memory_trigger_festival": {
+      "id": "memory_trigger_festival",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉を聞いていると、ふと賑やかな音を思い出した。\n笑い声、音楽、そして誰かの手の温もり。\nそれは、あなたが幸せを感じた大切な記憶。",
+      "background": "memory_blur",
+      "next": "question_feeling"
+    },
+    "memory_trigger_sea": {
+      "id": "memory_trigger_sea",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉を聞いていると、ふと波の音を思い出した。\n果てしない空、自由に走り回った時間、そして風の心地よさ。\nそれは、あなたが自分らしくいられた大切な記憶。",
+      "background": "memory_blur",
+      "next": "question_feeling"
+    },
+    "memory_trigger_room": {
+      "id": "memory_trigger_room",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉を聞いていると、ふと柔らかな布団の感触を思い出した。\n安心できる場所、守られている感覚、そして静かな安らぎ。\nそれは、あなたが心から休める大切な記憶。",
+      "background": "memory_blur",
+      "next": "question_feeling"
+    },
+    "question_feeling": {
+      "id": "question_feeling",
+      "type": "choice",
+      "speaker": "セラピスト",
+      "text": "何か思い出しましたか？\nその記憶に触れた時、あなたの心はどんな気持ちになりますか？",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "choices": [
+        {
+          "text": "温かく、穏やかな気持ち",
+          "next": "response_feeling_warm",
+          "flag": "positive_memory"
+        },
+        {
+          "text": "少し切ない気持ち",
+          "next": "response_feeling_nostalgic",
+          "flag": "nostalgic_memory"
+        },
+        {
+          "text": "複雑な気持ち",
+          "next": "response_feeling_complex",
+          "flag": "complex_memory"
+        },
+        {
+          "text": "よくわからない",
+          "next": "response_feeling_unclear",
+          "flag": "unclear_feeling"
+        }
+      ]
+    },
+    "response_feeling_warm": {
+      "id": "response_feeling_warm",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "温かい気持ち。それは素晴らしいことです。\nあなたの中には、大切に守られてきた宝物のような記憶がある。\nそれは、今のあなたを支える力になっています。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "deep_question"
+    },
+    "response_feeling_nostalgic": {
+      "id": "response_feeling_nostalgic",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "切ない気持ち。それも大切な感情です。\n過去を懐かしむということは、それだけ大切な時間だったということ。\nその記憶は、今のあなたの一部として生き続けています。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "deep_question"
+    },
+    "response_feeling_complex": {
+      "id": "response_feeling_complex",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "複雑な気持ち。それは、あなたが成長した証です。\n過去を多面的に見られるということは、あなたが自分と向き合っている証。\nその記憶も、今のあなたを形作る大切なピースです。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "deep_question"
+    },
+    "response_feeling_unclear": {
+      "id": "response_feeling_unclear",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "よくわからない。それも一つの答えです。\n今はまだ、心の整理がつかない。それで大丈夫です。\n時間をかけて、少しずつ理解していけばいいのですから。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "deep_question"
+    },
+    "deep_question": {
+      "id": "deep_question",
+      "type": "choice",
+      "speaker": "セラピスト",
+      "text": "では、最後の質問です。\nあなたが今、一番大切にしたいものは何ですか？",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "自分自身の心",
+          "next": "response_deep_self",
+          "flag": "value_self"
+        },
+        {
+          "text": "大切な人との繋がり",
+          "next": "response_deep_connection",
+          "flag": "value_connection"
+        },
+        {
+          "text": "自由に生きること",
+          "next": "response_deep_freedom",
+          "flag": "value_freedom"
+        },
+        {
+          "text": "穏やかな日々",
+          "next": "response_deep_peace",
+          "flag": "value_peace"
+        }
+      ]
+    },
+    "response_deep_self": {
+      "id": "response_deep_self",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "自分自身の心を大切にする。それは何よりも素晴らしい選択です。\nあなたが自分を愛することができれば、世界はもっと優しくなる。\nその気持ちを、どうか忘れないでください。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "revelation_self"
+    },
+    "response_deep_connection": {
+      "id": "response_deep_connection",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "大切な人との繋がり。それは人生を豊かにする宝物です。\nあなたが誰かを思う心は、同じように誰かもあなたを思っている。\nその繋がりを、どうか大切にしてください。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "revelation_connection"
+    },
+    "response_deep_freedom": {
+      "id": "response_deep_freedom",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "自由に生きること。それは人生の本質です。\nあなたには、自分らしく生きる権利がある。誰にも縛られる必要はない。\nその自由を、どうか謳歌してください。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "revelation_freedom"
+    },
+    "response_deep_peace": {
+      "id": "response_deep_peace",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "穏やかな日々。それは何よりも尊いものです。\nあなたには、平和に暮らす権利がある。心安らかに過ごす時間は、何にも代えがたい。\nその穏やかさを、どうか守ってください。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "revelation_peace"
+    },
+    "revelation_self": {
+      "id": "revelation_self",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉に、心が軽くなっていくのを感じる。\n自分を大切にする。それは、あなたがずっと忘れていたこと。\nそして今、思い出した。あなたは、あなた自身を愛していいのだと。",
+      "background": "white_light",
+      "next": "awakening"
+    },
+    "revelation_connection": {
+      "id": "revelation_connection",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉に、心が温かくなっていくのを感じる。\n大切な人との繋がり。それは、あなたがずっと求めていたもの。\nそして今、気づいた。あなたは一人じゃないのだと。",
+      "background": "white_light",
+      "next": "awakening"
+    },
+    "revelation_freedom": {
+      "id": "revelation_freedom",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉に、心が解放されていくのを感じる。\n自由に生きる。それは、あなたがずっと望んでいたこと。\nそして今、理解した。あなたは自由なのだと。",
+      "background": "white_light",
+      "next": "awakening"
+    },
+    "revelation_peace": {
+      "id": "revelation_peace",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "セラピストの言葉に、心が穏やかになっていくのを感じる。\n穏やかな日々。それは、あなたがずっと探していたもの。\nそして今、見つけた。あなたには安らぎがあるのだと。",
+      "background": "white_light",
+      "next": "awakening"
+    },
+    "awakening": {
+      "id": "awakening",
+      "type": "dialogue",
+      "speaker": "セラピスト",
+      "text": "さあ、目を覚ます時間です。\nあなたは、自分自身と向き合いました。そして、大切なことを思い出しました。\nこの気持ちを胸に、新しい朝を迎えてください。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "ending"
+    },
+    "ending": {
+      "id": "ending",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "白い空間が、ゆっくりと明るくなっていく。\n温かい光に包まれて、あなたは穏やかな気持ちになる。\n\n目を開けると、そこは優しい朝の光が差し込む、あなたの部屋だった。\n\n心は不思議と軽く、清々しい。\n今日は、いい一日になりそうだ。\n\nそう思えることが、何よりも嬉しかった。\n\n【END】",
+      "background": "morning_room",
+      "next": null
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "author": "Novel Tree Project",
+    "theme": "セルフセラピー",
+    "estimatedPlaytime": "10-15分",
+    "branches": 4,
+    "endings": 4
+  }
+}
