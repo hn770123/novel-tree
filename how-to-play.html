@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲーム操作マニュアル - 目覚めの部屋</title>
+    <style>
+        /* 全体設定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* コンテナ */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* ヘッダー */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: -20px -20px 30px -20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 戻るボタン */
+        .back-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* コンテンツ */
+        .content {
+            padding: 0 20px 40px 20px;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            font-size: 1.5rem;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+
+        h4 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-box {
+            background: #fff5e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                margin: -15px -15px 20px -15px;
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .content {
+                padding: 0 10px 30px 10px;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+            }
+
+            h4 {
+                font-size: 1rem;
+            }
+
+            ul, ol {
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ゲーム操作マニュアル</h1>
+            <p>目覚めの部屋 - セルフセラピーノベル</p>
+            <a href="index.html" class="back-button">タイトルに戻る</a>
+        </div>
+
+        <div class="content">
+            <h2>基本操作</h2>
+
+            <h3>ゲームの開始</h3>
+            <ol>
+                <li>タイトル画面で「はじめる」ボタンをクリック</li>
+                <li>ゲームが開始されます</li>
+            </ol>
+
+            <h3>テキストの進行</h3>
+            <ul>
+                <li>テキストボックスをクリックすると次のシーンへ進みます</li>
+                <li>画面右下の「▼」マークが表示されている時にクリック可能です</li>
+            </ul>
+
+            <h3>選択肢の選択</h3>
+            <ul>
+                <li>選択肢が表示された時は、好きな選択肢をクリックしてください</li>
+                <li>すべての選択肢に正解・不正解はありません</li>
+                <li>あなたの心のままに、お選びください</li>
+            </ul>
+
+            <h2>メニュー機能</h2>
+            <p>画面右上にあるメニューボタンから以下の機能が利用できます：</p>
+
+            <h3>AUTO（オートモード）</h3>
+            <ul>
+                <li>クリックせずに自動的にテキストが進行します</li>
+                <li>選択肢が出ると自動的に解除されます</li>
+                <li>もう一度クリックすると解除できます</li>
+            </ul>
+
+            <h3>SKIP（スキップモード）</h3>
+            <ul>
+                <li>高速でテキストを進めます</li>
+                <li>既読シーンを素早く通過したい時に便利です</li>
+                <li>選択肢が出ると自動的に解除されます</li>
+            </ul>
+
+            <h3>SAVE（セーブ）</h3>
+            <ul>
+                <li>現在の進行状況を保存します</li>
+                <li>5つのスロットから選択できます</li>
+                <li>既にセーブがあるスロットに上書き保存も可能です</li>
+            </ul>
+
+            <h3>LOAD（ロード）</h3>
+            <ul>
+                <li>保存した進行状況を読み込みます</li>
+                <li>セーブしたポイントから再開できます</li>
+                <li>スロットをクリックしてロードします</li>
+            </ul>
+
+            <h3>TITLE（タイトルへ戻る）</h3>
+            <ul>
+                <li>タイトル画面に戻ります</li>
+                <li>現在の進行状況は失われます（確認ダイアログが表示されます）</li>
+                <li>セーブせずに戻る場合は注意してください</li>
+            </ul>
+
+            <h2>プレイのヒント</h2>
+
+            <h3>初回プレイ</h3>
+            <ul>
+                <li>直感で選択肢を選ぶことをおすすめします</li>
+                <li>正解・不正解はないので、リラックスしてプレイしてください</li>
+            </ul>
+
+            <h3>複数回プレイ</h3>
+            <ul>
+                <li>異なる選択をすることで、新しい気づきが得られます</li>
+                <li>4種類のエンディングがあります</li>
+            </ul>
+
+            <h3>セーブの活用</h3>
+            <ul>
+                <li>重要な選択肢の前でセーブしておくと便利です</li>
+                <li>異なる選択を試したい時にすぐに戻れます</li>
+            </ul>
+
+            <h3>モバイルでのプレイ</h3>
+            <ul>
+                <li>スマートフォンやタブレットでもプレイ可能です</li>
+                <li>タップ操作でテキストを進められます</li>
+            </ul>
+
+            <h2>エンディングについて</h2>
+            <p>このゲームには4種類のエンディングがあります：</p>
+            <ol>
+                <li><strong>自己愛エンディング</strong>: 自分を大切にすることに気づく</li>
+                <li><strong>繋がりエンディング</strong>: 人との絆の大切さに気づく</li>
+                <li><strong>自由エンディング</strong>: 自分らしく生きる権利に気づく</li>
+                <li><strong>平和エンディング</strong>: 穏やかな日々の尊さに気づく</li>
+            </ol>
+            <p>すべてのエンディングは「気持ちの良い目覚め」で終わります。</p>
+
+            <div class="info-box">
+                <strong>推奨プレイ時間</strong><br>
+                1周あたり：10〜15分
+            </div>
+
+            <h2>技術的な情報</h2>
+            <ul>
+                <li><strong>対応ブラウザ</strong>: Chrome, Firefox, Safari, Edge（最新版推奨）</li>
+                <li><strong>セーブデータ</strong>: ブラウザのローカルストレージに保存されます</li>
+                <li><strong>画面サイズ</strong>: レスポンシブデザインで様々な画面サイズに対応</li>
+            </ul>
+
+            <h2>トラブルシューティング</h2>
+
+            <h3>セーブデータが消えた</h3>
+            <ul>
+                <li>ブラウザのキャッシュをクリアするとセーブデータも消えます</li>
+                <li>プライベートモード/シークレットモードではセーブできません</li>
+            </ul>
+
+            <h3>画像が表示されない</h3>
+            <ul>
+                <li>インターネット接続を確認してください</li>
+                <li>ページを再読み込み（F5キー）してください</li>
+            </ul>
+
+            <h3>動作が重い</h3>
+            <ul>
+                <li>他のタブやアプリケーションを閉じてください</li>
+                <li>ブラウザを再起動してください</li>
+            </ul>
+
+            <h2>お問い合わせ</h2>
+            <p>バグ報告や改善提案は、GitHubのIssueでお願いします。</p>
+
+            <div class="warning-box">
+                <strong>注意</strong>: このゲームは娯楽目的で作成されています。実際の心理療法やカウンセリングの代替にはなりません。深刻な心理的問題を抱えている場合は、専門家にご相談ください。
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="index.html" class="back-button" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">タイトルに戻る</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
