@@ -1,0 +1,335 @@
+/* 全体設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+    overflow: hidden;
+    background-color: #000;
+}
+
+/* ゲームコンテナ */
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 背景画像 */
+#background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1s ease-in-out;
+}
+
+/* キャラクター画像 */
+#character {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 80%;
+    background-size: contain;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+}
+
+/* テキストボックス */
+#text-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-height: 180px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 20px 40px;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#speaker-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffd700;
+}
+
+#text-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+#continue-indicator {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+    font-size: 1.5rem;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* 選択肢ボックス */
+#choice-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.choice-button {
+    padding: 20px 30px;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.choice-button:hover {
+    background: rgba(255, 215, 0, 0.95);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.choice-button:active {
+    transform: translateY(0);
+}
+
+/* タイトル画面 */
+#title-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    z-index: 1000;
+}
+
+#title-screen h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+#title-screen .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 50px;
+    opacity: 0.9;
+}
+
+.menu-button {
+    padding: 15px 50px;
+    font-size: 1.3rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
+    border-radius: 30px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px;
+}
+
+.menu-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.game-info {
+    margin-top: 40px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.game-info p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* メニューボタン */
+#menu-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+    z-index: 100;
+}
+
+.menu-btn {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.menu-btn.active {
+    background: rgba(255, 215, 0, 0.8);
+    color: #000;
+}
+
+/* モーダル */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* セーブスロット */
+#save-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.save-slot {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-slot:hover {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+}
+
+.save-slot.empty {
+    opacity: 0.5;
+}
+
+.save-slot-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.save-slot-info {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    #title-screen h1 {
+        font-size: 2.5rem;
+    }
+    
+    #title-screen .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    #text-box {
+        padding: 15px 20px;
+        min-height: 150px;
+    }
+    
+    #text-content {
+        font-size: 1rem;
+    }
+    
+    .choice-button {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+    
+    #character {
+        width: 60%;
+        height: 70%;
+    }
+    
+    .menu-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* フェードイン/アウトアニメーション */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.fade-out {
+    animation: fadeOut 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* 非表示クラス */
+.hidden {
+    display: none !important;
+}
