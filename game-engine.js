@@ -5,6 +5,9 @@
 
 // ゲーム状態管理
 class GameState {
+    // 履歴の最大サイズ
+    static MAX_HISTORY_SIZE = 50;
+
     constructor() {
         // 現在のノードID
         this.currentNodeId = null;
@@ -12,10 +15,8 @@ class GameState {
         this.flags = [];
         // 訪問済みノード（履歴）
         this.visitedNodes = [];
-        // オートモード
-        this.autoMode = false;
-        // スキップモード
-        this.skipMode = false;
+        // ノード履歴（戻る機能用）
+        this.nodeHistory = [];
         // シナリオデータ
         this.scenario = null;
     }
@@ -39,24 +40,24 @@ class GameState {
     }
 
     /**
-     * ゲーム状態をJSON形式で取得
+     * 履歴に追加
      */
-    toJSON() {
-        return {
-            currentNodeId: this.currentNodeId,
-            flags: this.flags,
-            visitedNodes: this.visitedNodes,
-            timestamp: new Date().toISOString()
-        };
+    addToHistory(nodeId) {
+        this.nodeHistory.push(nodeId);
+        // 履歴の長さを制限
+        if (this.nodeHistory.length > GameState.MAX_HISTORY_SIZE) {
+            this.nodeHistory.shift();
+        }
     }
 
     /**
-     * JSON形式からゲーム状態を復元
+     * 履歴から1つ戻る
      */
-    fromJSON(data) {
-        this.currentNodeId = data.currentNodeId;
-        this.flags = data.flags || [];
-        this.visitedNodes = data.visitedNodes || [];
+    goBack() {
+        if (this.nodeHistory.length > 0) {
+            return this.nodeHistory.pop();
+        }
+        return null;
     }
 }
 
@@ -87,15 +88,8 @@ class NovelGameEngine {
             titleScreen: document.getElementById('title-screen'),
             startButton: document.getElementById('start-button'),
             menuButtons: document.getElementById('menu-buttons'),
-            autoButton: document.getElementById('auto-button'),
-            skipButton: document.getElementById('skip-button'),
-            saveButton: document.getElementById('save-button'),
-            loadButton: document.getElementById('load-button'),
-            titleButton: document.getElementById('title-button'),
-            saveLoadScreen: document.getElementById('save-load-screen'),
-            saveLoadTitle: document.getElementById('save-load-title'),
-            saveSlots: document.getElementById('save-slots'),
-            closeSaveLoad: document.getElementById('close-save-load')
+            backButton: document.getElementById('back-button'),
+            titleButton: document.getElementById('title-button')
         };
 
         // イベントリスナーの設定
@@ -113,14 +107,8 @@ class NovelGameEngine {
         this.elements.textBox.addEventListener('click', () => this.onTextBoxClick());
 
         // メニューボタン
-        this.elements.autoButton.addEventListener('click', () => this.toggleAuto());
-        this.elements.skipButton.addEventListener('click', () => this.toggleSkip());
-        this.elements.saveButton.addEventListener('click', () => this.openSaveScreen());
-        this.elements.loadButton.addEventListener('click', () => this.openLoadScreen());
+        this.elements.backButton.addEventListener('click', () => this.goBackToPreviousNode());
         this.elements.titleButton.addEventListener('click', () => this.returnToTitle());
-
-        // セーブ/ロード画面
-        this.elements.closeSaveLoad.addEventListener('click', () => this.closeSaveLoadScreen());
     }
 
     /**
@@ -224,27 +212,12 @@ class NovelGameEngine {
         this.elements.speakerName.textContent = node.speaker || '';
         this.elements.textContent.textContent = node.text || '';
         this.elements.continueIndicator.style.display = 'block';
-
-        // オートモードまたはスキップモードの場合、自動的に次へ
-        if (this.state.autoMode || this.state.skipMode) {
-            const delay = this.state.skipMode ? 500 : 2500;
-            setTimeout(() => {
-                if (node.next) {
-                    this.moveToNode(node.next);
-                }
-            }, delay);
-        }
     }
 
     /**
      * 選択肢を表示（choiceタイプ）
      */
     displayChoice(node) {
-        // オートモードとスキップモードを解除
-        this.state.autoMode = false;
-        this.state.skipMode = false;
-        this.updateMenuButtons();
-
         // テキストボックスを表示（質問文）
         this.elements.textBox.style.display = 'block';
         this.elements.speakerName.textContent = node.speaker || '';
@@ -299,137 +272,24 @@ class NovelGameEngine {
      * 指定されたノードへ移動
      */
     moveToNode(nodeId) {
+        // 現在のノードを履歴に追加
+        if (this.state.currentNodeId) {
+            this.state.addToHistory(this.state.currentNodeId);
+        }
         this.state.currentNodeId = nodeId;
         this.displayCurrentNode();
     }
 
     /**
-     * オートモードの切り替え
+     * 前のノードに戻る
      */
-    toggleAuto() {
-        this.state.autoMode = !this.state.autoMode;
-        if (this.state.autoMode) {
-            this.state.skipMode = false;
+    goBackToPreviousNode() {
+        const previousNodeId = this.state.goBack();
+        if (previousNodeId) {
+            this.state.currentNodeId = previousNodeId;
+            this.displayCurrentNode();
         }
-        this.updateMenuButtons();
-    }
-
-    /**
-     * スキップモードの切り替え
-     */
-    toggleSkip() {
-        this.state.skipMode = !this.state.skipMode;
-        if (this.state.skipMode) {
-            this.state.autoMode = false;
-        }
-        this.updateMenuButtons();
-    }
-
-    /**
-     * メニューボタンの表示を更新
-     */
-    updateMenuButtons() {
-        this.elements.autoButton.classList.toggle('active', this.state.autoMode);
-        this.elements.skipButton.classList.toggle('active', this.state.skipMode);
-    }
-
-    /**
-     * セーブ画面を開く
-     */
-    openSaveScreen() {
-        this.elements.saveLoadTitle.textContent = 'セーブ';
-        this.renderSaveSlots('save');
-        this.elements.saveLoadScreen.style.display = 'flex';
-    }
-
-    /**
-     * ロード画面を開く
-     */
-    openLoadScreen() {
-        this.elements.saveLoadTitle.textContent = 'ロード';
-        this.renderSaveSlots('load');
-        this.elements.saveLoadScreen.style.display = 'flex';
-    }
-
-    /**
-     * セーブ/ロード画面を閉じる
-     */
-    closeSaveLoadScreen() {
-        this.elements.saveLoadScreen.style.display = 'none';
-    }
-
-    /**
-     * セーブスロットを描画
-     */
-    renderSaveSlots(mode) {
-        this.elements.saveSlots.innerHTML = '';
-
-        for (let i = 1; i <= 5; i++) {
-            const slotKey = `save_slot_${i}`;
-            const saveData = localStorage.getItem(slotKey);
-            
-            const slot = document.createElement('div');
-            slot.className = 'save-slot';
-            
-            if (saveData) {
-                const data = JSON.parse(saveData);
-                const date = new Date(data.timestamp);
-                slot.innerHTML = `
-                    <div class="save-slot-title">スロット ${i}</div>
-                    <div class="save-slot-info">
-                        ${date.toLocaleString('ja-JP')}<br>
-                        進行度: ${data.visitedNodes.length}ノード
-                    </div>
-                `;
-            } else {
-                slot.classList.add('empty');
-                slot.innerHTML = `
-                    <div class="save-slot-title">スロット ${i}</div>
-                    <div class="save-slot-info">空きスロット</div>
-                `;
-            }
-
-            slot.addEventListener('click', () => {
-                if (mode === 'save') {
-                    this.saveGame(slotKey);
-                } else {
-                    this.loadGame(slotKey);
-                }
-            });
-
-            this.elements.saveSlots.appendChild(slot);
-        }
-    }
-
-    /**
-     * ゲームをセーブ
-     */
-    saveGame(slotKey) {
-        const saveData = this.state.toJSON();
-        localStorage.setItem(slotKey, JSON.stringify(saveData));
-        alert('セーブしました。');
-        this.closeSaveLoadScreen();
-    }
-
-    /**
-     * ゲームをロード
-     */
-    loadGame(slotKey) {
-        const saveData = localStorage.getItem(slotKey);
-        if (!saveData) {
-            alert('セーブデータがありません。');
-            return;
-        }
-
-        const data = JSON.parse(saveData);
-        this.state.fromJSON(data);
-        this.closeSaveLoadScreen();
-        
-        // タイトル画面を非表示
-        this.elements.titleScreen.style.display = 'none';
-        
-        // ロードしたノードを表示
-        this.displayCurrentNode();
+        // 履歴がない場合は何もしない（無言で処理）
     }
 
     /**
