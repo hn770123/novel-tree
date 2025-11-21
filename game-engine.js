@@ -63,7 +63,8 @@ class GameState {
 
 // ゲームエンジン本体
 class NovelGameEngine {
-    // レスポンシブデザインのブレークポイント（CSSのメディアクエリと一致）
+    // レスポンシブデザインのブレークポイント（CSSのmax-width: 768pxと一致）
+    // 768px以下の画面幅をモバイルビューとして扱う
     static MOBILE_BREAKPOINT = 768;
     // スクロール遅延時間（ミリ秒）
     static SCROLL_DELAY_MS = 100;
