@@ -322,7 +322,6 @@ body {
     #background {
         position: fixed;
         height: 40vh;
-        width: 100%;
         background-size: contain;
         background-position: center top;
         z-index: 0;
@@ -336,8 +335,6 @@ body {
         max-height: 25vh;
         bottom: auto;
         top: 15vh;
-        background-size: contain;
-        background-position: center bottom;
         z-index: 1;
     }
     
