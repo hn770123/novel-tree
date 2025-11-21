@@ -74,6 +74,11 @@ class NovelGameEngine {
         this.isReady = false;
         // 画像フォーマットの設定（拡張子）
         this.imageFormat = 'JPG';
+        // タイプライター効果の設定
+        this.typewriterSpeed = 50; // ミリ秒/文字
+        this.isTyping = false; // タイピング中かどうか
+        this.typingTimeout = null; // タイピングのタイムアウトID
+        this.fullText = ''; // 完全なテキスト
         this.initElements();
         this.loadScenario();
     }
@@ -265,6 +270,45 @@ class NovelGameEngine {
     }
 
     /**
+     * タイプライター効果でテキストを表示
+     * テキストの長さに応じてテキストボックスのサイズも拡張
+     */
+    typewriterEffect(text, callback) {
+        this.isTyping = true;
+        this.fullText = text;
+        this.elements.continueIndicator.style.display = 'none';
+        this.elements.textContent.textContent = '';
+        
+        let currentIndex = 0;
+        const typeNextChar = () => {
+            if (currentIndex < text.length) {
+                this.elements.textContent.textContent = text.substring(0, currentIndex + 1);
+                currentIndex++;
+                this.typingTimeout = setTimeout(typeNextChar, this.typewriterSpeed);
+            } else {
+                this.isTyping = false;
+                this.elements.continueIndicator.style.display = 'block';
+                if (callback) callback();
+            }
+        };
+        
+        typeNextChar();
+    }
+
+    /**
+     * タイプライター効果をスキップして全文を表示
+     */
+    skipTypewriter() {
+        if (this.isTyping) {
+            clearTimeout(this.typingTimeout);
+            this.typingTimeout = null;
+            this.elements.textContent.textContent = this.fullText;
+            this.isTyping = false;
+            this.elements.continueIndicator.style.display = 'block';
+        }
+    }
+
+    /**
      * テキストを表示（story/dialogueタイプ）
      */
     displayText(node) {
@@ -274,8 +318,9 @@ class NovelGameEngine {
         // テキストボックスを表示
         this.elements.textBox.style.display = 'block';
         this.elements.speakerName.textContent = node.speaker || '';
-        this.elements.textContent.textContent = node.text || '';
-        this.elements.continueIndicator.style.display = 'block';
+        
+        // タイプライター効果でテキストを表示
+        this.typewriterEffect(node.text || '');
     }
 
     /**
@@ -323,6 +368,12 @@ class NovelGameEngine {
         
         // 選択肢表示中は無視
         if (node.type === 'choice') {
+            return;
+        }
+
+        // タイピング中ならスキップ
+        if (this.isTyping) {
+            this.skipTypewriter();
             return;
         }
 
