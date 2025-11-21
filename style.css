@@ -9,6 +9,8 @@ body {
     font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
     overflow: hidden;
     background-color: #000;
+    /* モバイルでのスクロールを有効化 */
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ゲームコンテナ */
@@ -160,11 +162,19 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 10px;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .menu-button:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+}
+
+/* 遊び方リンクのスタイル */
+.how-to-play-link {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
 }
 
 .game-info {
@@ -230,6 +240,8 @@ body {
     max-width: 600px;
     max-height: 80vh;
     overflow-y: auto;
+    /* モバイルでのスムーズスクロール */
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-content h2 {
@@ -307,6 +319,20 @@ body {
     .menu-btn {
         padding: 6px 10px;
         font-size: 0.75rem;
+    }
+    
+    /* モバイルでのボタンサイズ調整 */
+    .menu-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        margin: 8px;
+    }
+    
+    /* モバイルでのモーダルコンテンツ */
+    .modal-content {
+        width: 90%;
+        padding: 30px 20px;
+        max-height: 85vh;
     }
 }
 
