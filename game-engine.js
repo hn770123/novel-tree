@@ -301,6 +301,7 @@ class NovelGameEngine {
     skipTypewriter() {
         if (this.isTyping) {
             clearTimeout(this.typingTimeout);
+            this.typingTimeout = null;
             this.elements.textContent.textContent = this.fullText;
             this.isTyping = false;
             this.elements.continueIndicator.style.display = 'block';
