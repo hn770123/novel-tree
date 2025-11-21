@@ -18,6 +18,8 @@
             color: #333;
             line-height: 1.8;
             overflow-x: hidden;
+            /* iOSのスムーズスクロールを有効化 */
+            -webkit-overflow-scrolling: touch;
         }
 
         /* コンテナ */
@@ -28,6 +30,8 @@
             background: rgba(255, 255, 255, 0.95);
             min-height: 100vh;
             overflow-y: auto;
+            /* iOSのスムーズスクロールを有効化 */
+            -webkit-overflow-scrolling: touch;
         }
 
         /* ヘッダー */
@@ -61,6 +65,8 @@
             margin-top: 20px;
             transition: all 0.3s ease;
             cursor: pointer;
+            /* iOSでのタッチイベントを改善 */
+            touch-action: manipulation;
         }
 
         .back-button:hover {

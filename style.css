@@ -243,6 +243,8 @@ body {
     max-width: 600px;
     max-height: 80vh;
     overflow-y: auto;
+    /* iOSのスムーズスクロールを有効化 */
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-content h2 {
@@ -294,6 +296,10 @@ body {
     body {
         overflow-y: auto;
         overflow-x: hidden;
+        /* iOSのスムーズスクロールを有効化 */
+        -webkit-overflow-scrolling: touch;
+        /* iOSで固定配置の問題を解決 */
+        position: relative;
     }
     
     #game-container {
@@ -302,6 +308,8 @@ body {
         height: auto;
         display: flex;
         flex-direction: column;
+        /* iOSのスクロールを改善 */
+        -webkit-overflow-scrolling: touch;
     }
     
     /* 背景は固定表示 */
@@ -338,6 +346,8 @@ body {
         padding: 15px 20px;
         z-index: 10;
         flex-shrink: 0;
+        /* iOSでのタッチイベントを改善 */
+        touch-action: manipulation;
     }
     
     #text-content {
@@ -356,11 +366,15 @@ body {
         margin: 20px auto 40px auto;
         padding-bottom: 20px;
         z-index: 10;
+        /* iOSでのタッチイベントを改善 */
+        touch-action: manipulation;
     }
     
     .choice-button {
         padding: 15px 20px;
         font-size: 1rem;
+        /* iOSでのタッチイベントを改善 */
+        touch-action: manipulation;
     }
     
     .menu-btn {
@@ -379,6 +393,14 @@ body {
         padding: 12px 30px;
         font-size: 1.1rem;
         margin: 8px;
+        /* iOSでのタッチイベントを改善 */
+        touch-action: manipulation;
+    }
+    
+    #title-screen {
+        /* iOSでのスクロールを改善 */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     #title-screen h1 {
