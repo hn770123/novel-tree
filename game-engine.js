@@ -160,11 +160,17 @@ class NovelGameEngine {
         }
 
         // 次のシナリオに移ったら一番上にスクロールして戻る
+        // 古いブラウザのためのフォールバック付き
         setTimeout(() => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (e) {
+                // 古いブラウザではオプションをサポートしていないためシンプルなスクロールを使用
+                window.scrollTo(0, 0);
+            }
         }, NovelGameEngine.SCROLL_DELAY_MS);
 
         // ノードを訪問済みとしてマーク
