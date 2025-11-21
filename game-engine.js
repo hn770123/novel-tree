@@ -159,17 +159,19 @@ class NovelGameEngine {
             return;
         }
 
-        // モバイルビューではテキストボックスエリアを下にスクロール
-        // デスクトップビューではページ全体を上にスクロール
-        if (window.innerWidth <= NovelGameEngine.MOBILE_BREAKPOINT) {
-            // テキストボックスエリアを下にスクロール（読み進めるため）
-            setTimeout(() => {
-                this.elements.textBox.scrollTop = this.elements.textBox.scrollHeight;
-            }, NovelGameEngine.SCROLL_DELAY_MS);
-        } else {
-            // デスクトップではページ全体を上にスクロール
-            window.scrollTo(0, 0);
-        }
+        // 次のシナリオに移ったら一番上にスクロールして戻る
+        // 古いブラウザのためのフォールバック付き
+        setTimeout(() => {
+            try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (e) {
+                // 古いブラウザではオプションをサポートしていないためシンプルなスクロールを使用
+                window.scrollTo(0, 0);
+            }
+        }, NovelGameEngine.SCROLL_DELAY_MS);
 
         // ノードを訪問済みとしてマーク
         this.state.visitNode(this.state.currentNodeId);
