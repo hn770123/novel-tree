@@ -5,6 +5,9 @@
 
 // ゲーム状態管理
 class GameState {
+    // 履歴の最大サイズ
+    static MAX_HISTORY_SIZE = 50;
+
     constructor() {
         // 現在のノードID
         this.currentNodeId = null;
@@ -41,8 +44,8 @@ class GameState {
      */
     addToHistory(nodeId) {
         this.nodeHistory.push(nodeId);
-        // 履歴の長さを制限（最大50ノード）
-        if (this.nodeHistory.length > 50) {
+        // 履歴の長さを制限
+        if (this.nodeHistory.length > GameState.MAX_HISTORY_SIZE) {
             this.nodeHistory.shift();
         }
     }
@@ -285,9 +288,8 @@ class NovelGameEngine {
         if (previousNodeId) {
             this.state.currentNodeId = previousNodeId;
             this.displayCurrentNode();
-        } else {
-            alert('これ以上戻れません。');
         }
+        // 履歴がない場合は何もしない（無言で処理）
     }
 
     /**
