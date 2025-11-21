@@ -198,10 +198,54 @@ class NovelGameEngine {
 
     /**
      * 背景画像を設定
+     * ストーリーの進行に応じて背景色を段階的に明るくする
      */
     setBackground(backgroundId) {
         const imagePath = `${backgroundId}.${this.imageFormat}`;
         this.elements.background.style.backgroundImage = `url('${imagePath}')`;
+        
+        // ストーリーの進行度に応じて背景の明度を調整
+        const brightness = this.calculateBrightness(this.state.currentNodeId);
+        this.elements.background.style.backgroundColor = brightness;
+    }
+
+    /**
+     * ノードIDに基づいて背景の明度を計算
+     * opening(開始)からending(目覚め)まで段階的に明るくする
+     */
+    calculateBrightness(nodeId) {
+        // ストーリーの主要な進行段階を定義
+        const progressionStages = {
+            // 開始 - 非常に暗い
+            'opening': '#1a1a1a',
+            'meet_therapist': '#1a1a1a',
+            'mysterious_feeling': '#1a1a1a',
+            'therapist_greeting': '#202020',
+            // 質問段階 - 少しずつ明るく
+            'first_question_intro': '#2a2a2a',
+            'question_color': '#333333',
+            'question_place': '#404040',
+            // 記憶段階 - 中間の明るさ
+            'memory_trigger_book': '#4d4d4d',
+            'memory_trigger_festival': '#4d4d4d',
+            'memory_trigger_sea': '#4d4d4d',
+            'memory_trigger_room': '#4d4d4d',
+            'question_feeling': '#5a5a5a',
+            // 深い質問段階 - さらに明るく
+            'deep_question': '#666666',
+            // 啓示段階 - かなり明るい
+            'revelation_self': '#808080',
+            'revelation_connection': '#808080',
+            'revelation_freedom': '#808080',
+            'revelation_peace': '#808080',
+            // 目覚め段階 - 最も明るい
+            'awakening': '#999999',
+            'farewell_moment': '#b3b3b3',
+            'ending': '#cccccc'
+        };
+
+        // 指定されたノードの明度を返す。定義されていない場合はデフォルト値を使用
+        return progressionStages[nodeId] || '#1a1a1a';
     }
 
     /**
