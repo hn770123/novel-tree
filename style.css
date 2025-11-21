@@ -9,10 +9,12 @@ body {
     font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
     overflow: hidden;
     background-color: #000;
-    /* モバイルブラウザのアドレスバーを考慮した高さ設定 */
+    /* デスクトップではposition: fixedを使用、モバイルでは後で上書き */
     position: fixed;
     width: 100%;
     height: 100%;
+    /* iOSのスムーズスクロールを有効化 */
+    -webkit-overflow-scrolling: touch;
 }
 
 /* ゲームコンテナ */
@@ -298,8 +300,11 @@ body {
         overflow-x: hidden;
         /* iOSのスムーズスクロールを有効化 */
         -webkit-overflow-scrolling: touch;
-        /* iOSで固定配置の問題を解決 */
+        /* iOSで固定配置の問題を解決 - position: relativeまたはstaticに変更 */
         position: relative;
+        /* モバイルでの高さを100vh以上に設定してスクロールを確保 */
+        min-height: 100vh;
+        height: auto;
     }
     
     #game-container {
@@ -409,6 +414,26 @@ body {
     
     #title-screen .subtitle {
         font-size: 1.2rem;
+    }
+}
+
+/* iOS Safari専用の修正 */
+@supports (-webkit-touch-callout: none) {
+    /* iOS Safariでのスクロール問題を修正 */
+    @media (max-width: 768px) {
+        body {
+            /* position: fixedを完全に無効化 */
+            position: static !important;
+            /* スクロールを確実に有効化 */
+            overflow-y: scroll !important;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        #game-container {
+            /* iOS Safariでのスクロールを改善 */
+            position: relative;
+            overflow: visible;
+        }
     }
 }
 
