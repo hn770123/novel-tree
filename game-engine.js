@@ -153,8 +153,17 @@ class NovelGameEngine {
             return;
         }
 
-        // スクロール位置を一番上にリセット（シナリオ進行時に常に画面上部から表示）
-        window.scrollTo(0, 0);
+        // モバイルビューではテキストボックスエリアを下にスクロール
+        // デスクトップビューではページ全体を上にスクロール
+        if (window.innerWidth <= 768) {
+            // テキストボックスエリアを下にスクロール（読み進めるため）
+            setTimeout(() => {
+                this.elements.textBox.scrollTop = this.elements.textBox.scrollHeight;
+            }, 100);
+        } else {
+            // デスクトップではページ全体を上にスクロール
+            window.scrollTo(0, 0);
+        }
 
         // ノードを訪問済みとしてマーク
         this.state.visitNode(this.state.currentNodeId);
