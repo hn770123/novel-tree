@@ -32,32 +32,33 @@ body {
 }
 
 /* 背景画像とキャラクターを重ねて表示するためのコンテナ - スクロール時も固定 */
+/* 背景画像は画面の上半分に収まるサイズに縮小 */
 #background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 50vh;
     background-color: #000;
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: center top;
     background-repeat: no-repeat;
     transition: background-image 2s ease-in-out, background-color 2s ease-in-out, opacity 2s ease-in-out;
     z-index: 1;
 }
 
-/* キャラクター画像 - 背景の上に固定表示 */
+/* キャラクター画像 - 背景の中央に固定表示（背景の6割サイズ） */
 #character {
     position: fixed;
-    bottom: 0;
+    top: 25vh;
     left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    max-width: 400px;
-    height: 50vh;
-    min-height: 300px;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-width: 480px;
+    height: 30vh;
+    min-height: 200px;
     background-size: contain;
-    background-position: bottom center;
+    background-position: center center;
     background-repeat: no-repeat;
     transition: background-image 0.5s ease-in-out;
     pointer-events: none;
@@ -70,7 +71,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 800px;
-    margin: 70vh auto 20px auto;
+    margin: 55vh auto 20px auto;
     min-height: auto;
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(10px);
@@ -314,18 +315,19 @@ body {
 /* レスポンシブ対応 - モバイルでも同様のブログスタイルを維持 */
 @media (max-width: 768px) {
     #background {
-        height: 100vh;
+        height: 50vh;
     }
     
     #character {
         width: 60%;
-        height: 40vh;
-        min-height: 250px;
+        height: 30vh;
+        min-height: 200px;
+        top: 25vh;
     }
     
     #text-box {
         padding: 20px 20px 30px 20px;
-        margin: 60vh 15px 10px 15px;
+        margin: 55vh 15px 10px 15px;
     }
     
     #text-content {
