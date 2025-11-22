@@ -19,6 +19,8 @@ class GameState {
         this.nodeHistory = [];
         // シナリオデータ
         this.scenario = null;
+        // 表示済みキャラクター（初回フェードイン管理用）
+        this.shownCharacters = [];
     }
 
     /**
@@ -100,7 +102,9 @@ class NovelGameEngine {
             startButton: document.getElementById('start-button'),
             menuButtons: document.getElementById('menu-buttons'),
             backButton: document.getElementById('back-button'),
-            titleButton: document.getElementById('title-button')
+            titleButton: document.getElementById('title-button'),
+            endingScreen: document.getElementById('ending-screen'),
+            endingTitleButton: document.getElementById('ending-title-button')
         };
 
         // イベントリスナーの設定
@@ -120,6 +124,9 @@ class NovelGameEngine {
         // メニューボタン
         this.elements.backButton.addEventListener('click', () => this.goBackToPreviousNode());
         this.elements.titleButton.addEventListener('click', () => this.returnToTitle());
+        
+        // エンディング画面のタイトルボタン
+        this.elements.endingTitleButton.addEventListener('click', () => this.returnToTitleFromEnding());
     }
 
     /**
@@ -193,11 +200,18 @@ class NovelGameEngine {
             this.hideCharacter();
         }
 
-        // ノードタイプに応じて表示
-        if (node.type === 'choice') {
-            this.displayChoice(node);
+        // エンディングの場合、エンディングボタンを表示
+        if (this.state.currentNodeId === 'ending') {
+            this.displayEnding(node);
         } else {
-            this.displayText(node);
+            // エンディング画面を非表示
+            this.elements.endingScreen.style.display = 'none';
+            // ノードタイプに応じて表示
+            if (node.type === 'choice') {
+                this.displayChoice(node);
+            } else {
+                this.displayText(node);
+            }
         }
     }
 
@@ -255,11 +269,27 @@ class NovelGameEngine {
 
     /**
      * キャラクター画像を設定
+     * 初回登場時は3秒のスムーズなフェードイン、2回目以降は即座に表示
      */
     setCharacter(characterId) {
         const imagePath = `${characterId}.${this.imageFormat}`;
         this.elements.character.style.backgroundImage = `url('${imagePath}')`;
-        this.elements.character.style.opacity = '1';
+        
+        // キャラクターが初めて表示される場合
+        if (!this.state.shownCharacters.includes(characterId)) {
+            // アニメーションクラスを削除してリセット
+            this.elements.character.classList.remove('character-fade-in');
+            // 強制的にリフロー（再レンダリング）を実行してアニメーションをリセット
+            void this.elements.character.offsetWidth;
+            // アニメーションクラスを追加してフェードイン開始
+            this.elements.character.classList.add('character-fade-in');
+            // 表示済みリストに追加
+            this.state.shownCharacters.push(characterId);
+        } else {
+            // 2回目以降は即座に表示
+            this.elements.character.style.opacity = '1';
+            this.elements.character.classList.remove('character-fade-in');
+        }
     }
 
     /**
@@ -267,6 +297,7 @@ class NovelGameEngine {
      */
     hideCharacter() {
         this.elements.character.style.opacity = '0';
+        this.elements.character.classList.remove('character-fade-in');
     }
 
     /**
@@ -408,6 +439,16 @@ class NovelGameEngine {
     }
 
     /**
+     * エンディングを表示
+     */
+    displayEnding(node) {
+        // テキストを表示
+        this.displayText(node);
+        // エンディング画面のボタンを表示
+        this.elements.endingScreen.style.display = 'block';
+    }
+
+    /**
      * タイトルに戻る
      */
     returnToTitle() {
@@ -424,8 +465,32 @@ class NovelGameEngine {
             // 画面をクリア
             this.elements.textBox.style.display = 'none';
             this.elements.choiceBox.style.display = 'none';
+            this.elements.endingScreen.style.display = 'none';
             this.hideCharacter();
         }
+    }
+
+    /**
+     * エンディングからタイトルに戻る（確認なし）
+     */
+    returnToTitleFromEnding() {
+        // シナリオデータを保持
+        const scenario = this.state.scenario;
+        // ゲーム状態をリセット
+        this.state = new GameState();
+        this.state.scenario = scenario;
+        
+        // タイトル画面を表示
+        this.elements.titleScreen.style.display = 'flex';
+        
+        // 画面をクリア
+        this.elements.textBox.style.display = 'none';
+        this.elements.choiceBox.style.display = 'none';
+        this.elements.endingScreen.style.display = 'none';
+        this.hideCharacter();
+        
+        // 一番上にスクロール
+        window.scrollTo(0, 0);
     }
 }
 
