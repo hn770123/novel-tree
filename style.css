@@ -47,18 +47,18 @@ body {
     z-index: 1;
 }
 
-/* キャラクター画像 - 背景の上に固定表示 */
+/* キャラクター画像 - 背景の中央に固定表示（背景の6割サイズ） */
 #character {
     position: fixed;
-    bottom: 0;
+    top: 25vh;
     left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    max-width: 400px;
-    height: 50vh;
-    min-height: 300px;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-width: 480px;
+    height: 30vh;
+    min-height: 200px;
     background-size: contain;
-    background-position: bottom center;
+    background-position: center center;
     background-repeat: no-repeat;
     transition: background-image 0.5s ease-in-out;
     pointer-events: none;
@@ -320,8 +320,9 @@ body {
     
     #character {
         width: 60%;
-        height: 40vh;
-        min-height: 250px;
+        height: 30vh;
+        min-height: 200px;
+        top: 25vh;
     }
     
     #text-box {
