@@ -31,23 +31,24 @@ body {
     flex-direction: column;
 }
 
-/* 背景画像とキャラクターを重ねて表示するためのコンテナ */
+/* 背景画像とキャラクターを重ねて表示するためのコンテナ - スクロール時も固定 */
 #background {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 70vh;
-    min-height: 500px;
+    height: 100vh;
     background-color: #000;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 2s ease-in-out, background-color 2s ease-in-out, opacity 2s ease-in-out;
-    flex-shrink: 0;
+    z-index: 1;
 }
 
-/* キャラクター画像 - 背景の上に重ねて表示 */
+/* キャラクター画像 - 背景の上に固定表示 */
 #character {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -58,16 +59,18 @@ body {
     background-size: contain;
     background-position: bottom center;
     background-repeat: no-repeat;
-    transition: opacity 2s ease-in-out, background-image 2s ease-in-out;
+    transition: background-image 0.5s ease-in-out;
     pointer-events: none;
+    z-index: 2;
+    opacity: 0;
 }
 
-/* テキストボックス - 半透明で背景とキャラクターが透けて見える */
+/* テキストボックス - 半透明で背景とキャラクターが透けて見える、固定背景の上に配置 */
 #text-box {
     position: relative;
     width: 100%;
     max-width: 800px;
-    margin: 20px auto;
+    margin: 70vh auto 20px auto;
     min-height: auto;
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(10px);
@@ -80,6 +83,7 @@ body {
     border-radius: 8px;
     flex-shrink: 0;
     overflow: hidden;
+    z-index: 10;
 }
 
 #speaker-name {
@@ -112,7 +116,7 @@ body {
     51%, 100% { opacity: 0; }
 }
 
-/* 選択肢ボックス - ブログ記事のように通常のフローに配置 */
+/* 選択肢ボックス - 固定背景の上に配置 */
 #choice-box {
     position: relative;
     width: 100%;
@@ -122,6 +126,7 @@ body {
     flex-direction: column;
     gap: 15px;
     padding: 0 20px;
+    z-index: 10;
 }
 
 .choice-button {
@@ -309,8 +314,7 @@ body {
 /* レスポンシブ対応 - モバイルでも同様のブログスタイルを維持 */
 @media (max-width: 768px) {
     #background {
-        height: 60vh;
-        min-height: 400px;
+        height: 100vh;
     }
     
     #character {
@@ -321,7 +325,7 @@ body {
     
     #text-box {
         padding: 20px 20px 30px 20px;
-        margin: 10px 15px;
+        margin: 60vh 15px 10px 15px;
     }
     
     #text-content {
@@ -393,6 +397,11 @@ body {
     animation: fadeOut 1s ease-in-out;
 }
 
+/* キャラクター初回登場時のスムーズなフェードイン（3秒） */
+.character-fade-in {
+    animation: characterFadeIn 3s ease-in-out forwards;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -401,6 +410,21 @@ body {
 @keyframes fadeOut {
     from { opacity: 1; }
     to { opacity: 0; }
+}
+
+@keyframes characterFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* エンディング画面 */
+#ending-screen {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+    z-index: 10;
 }
 
 /* 非表示クラス */
