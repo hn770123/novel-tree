@@ -1,0 +1,369 @@
+{
+  "title": "並行の兄影 - 最後の夢",
+  "description": "並行世界の若者との再会。名乗れない真実、癒しの対話、そして切ない別れの物語",
+  "startNode": "opening",
+  "nodes": {
+    "opening": {
+      "id": "opening",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "夢を見ている。\n\nまた、この感覚だ。\n真っ白な空間。境界のない世界。\n\n前にもここに来たことがある気がする。\nでも、いつだったか、はっきりとは思い出せない。\n\n記憶が霧の向こうにあるような、\nそんな不思議な感覚。\n\nでも、怖くはない。\nむしろ、どこか懐かしい。\n\n誰かに会えるような、そんな予感がする。",
+      "background": "white_room",
+      "next": "reunion_dream"
+    },
+    "reunion_dream": {
+      "id": "reunion_dream",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "ふと、目の前に人影が現れる。\n\n黒い髪、黒い服、眼鏡。\nどこかで会ったことがあるような気がする若者だ。\n\n彼は少し疲れているように見える。\n眼鏡の奥の瞳には、深い影が宿っている。\n\nでも、こちらを見た瞬間、\n彼の表情がふっと和らいだ。\n\n懐かしくて、切なくて、\nどこか寂しそうな笑顔。\n\n「...また、来てしまった」\n\nその声は、心の奥底まで染み込んでくる。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "young_man_appears"
+    },
+    "young_man_appears": {
+      "id": "young_man_appears",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "...ごめん。\n\n本当は、もう来ないつもりだったんだ。\n\nこうやって何度も会うと、\n君の記憶に影響が出るかもしれない。\n混乱を招くかもしれない。\n\n大切な人の記憶を壊したくない。\nそう思ってたのに...\n\nでも、どうしても会いたくて。\n君の顔を見たくて。\n\n...ダメだよね。勝手すぎる。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "question_who"
+    },
+    "question_who": {
+      "id": "question_who",
+      "type": "choice",
+      "speaker": "若者",
+      "text": "僕が誰なのか、聞きたいよね。\n\nでも...言えないんだ。\n\n名乗ることで、君の記憶がもっと混乱するかもしれない。\n僕のことを覚えていることが、\n君の日常に影を落とすかもしれない。\n\nだから、僕が何者かは聞かないでほしい。\n\nでも、代わりに...\n僕が見てきた世界の話なら、できる。\n\n聞いてくれる？",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "聞かせて",
+          "next": "story_begin",
+          "flag": "wants_to_listen"
+        },
+        {
+          "text": "あなたのことが知りたい",
+          "next": "cannot_tell",
+          "flag": "wants_identity"
+        }
+      ]
+    },
+    "cannot_tell": {
+      "id": "cannot_tell",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "...ありがとう。そう言ってくれて嬉しいよ。\n\nでも、本当にごめん。\n僕が誰なのかは、言えないんだ。\n\n君のためなんだ。信じてほしい。\n\n繰り返し夢で会うと、記憶が混ざる。\n現実と夢の境界が曖昧になる。\n\n僕は、そういうことを知っている。\nだから...名乗れない。\n\nでも、僕の話なら聞いてくれるかな。\n僕が何を見てきたか、\n何を経験してきたか。\n\nそれなら、話せるから。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "story_begin"
+    },
+    "story_begin": {
+      "id": "story_begin",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "僕には...特別な力がある。\n\n並行世界を覗くことができるんだ。\n夢を通じて、別の世界の人々を見ることができる。\n\n最初は、不思議だった。\n色んな世界を見られることが、楽しかった。\n\nある世界では、空が緑色だった。\nある世界では、海が砂漠だった。\n同じはずの世界が、少しずつ違っていて。\n\nでも...その力は、僕を苦しめることになった。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "organization_story"
+    },
+    "organization_story": {
+      "id": "organization_story",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "組織に見つかったんだ。\n\n政府系の、特殊能力を管理する組織。\n彼らは僕の力を利用したがった。\n\n「国のためだ」って言われた。\n「協力してくれれば、外出枠を与える」\n「君の生活の質は保証する」\n\n...人質みたいなものだった。\n協力しなければ、大切な人との接触を制限される。\n\n僕は従った。\n従うしかなかった。",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "next": "organization_detail"
+    },
+    "organization_detail": {
+      "id": "organization_detail",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "彼らは数字で話す人たちだった。\n\n僕の見たものは、いつも数にされた。\n情報に変えられて、交渉材料にされた。\n\n人の夢を覗いて、弱みを報告した。\n幼少期のトラウマとか、家族への執着とか。\nそういうものを、言葉にして、紙に書いて、提出した。\n\n「データは国のために使われる」\n「個別の感情は配慮する、だが国益が優先だ」\n\n彼らはそう言った。\n僕は...それに従った。",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "next": "question_about_past"
+    },
+    "question_about_past": {
+      "id": "question_about_past",
+      "type": "choice",
+      "speaker": "若者",
+      "text": "ひどい話だろう？\n\n人の心を覗いて、それを売っていたんだ。\n自分の自由のために、誰かの弱みを差し出していた。\n\n...君は、どう思う？",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "辛かったね",
+          "next": "response_empathy",
+          "flag": "empathetic"
+        },
+        {
+          "text": "選択肢がなかったんだね",
+          "next": "response_understanding",
+          "flag": "understanding"
+        },
+        {
+          "text": "今は後悔してる？",
+          "next": "response_question",
+          "flag": "questioning"
+        }
+      ]
+    },
+    "response_empathy": {
+      "id": "response_empathy",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "辛かった...そうだね。辛かった。\n\n...ありがとう。\n\nそう言ってもらえるだけで、少し楽になる。\n\n組織にいた頃は、誰も僕の気持ちなんて聞いてくれなかった。\n結果だけを求められて、感情は邪魔者扱いだった。\n\n君みたいに、「辛かったね」って言ってくれる人が、\nあの頃にもいたら...どうなってたかな。\n\nもう少し、違う道を選べてたかもしれない。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "deeper_story"
+    },
+    "response_understanding": {
+      "id": "response_understanding",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "選択肢がなかった...そうだね。\n\nでも、それは言い訳かもしれない。\n本当は、もっと抵抗できたのかもしれない。\n\n...でも、そう言ってくれて嬉しい。\n\n組織は、僕に「選ばせている」と言った。\n協力か、拒否か。自由に選べと。\nでも、拒否した時の代償を知った上での選択だった。\n\nそれを「選択肢がなかった」と言ってくれる君は、\n本当に優しいね。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "deeper_story"
+    },
+    "response_question": {
+      "id": "response_question",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "後悔...してるよ。毎日。\n\n僕が覗いた人たちのことを、時々夢に見る。\n知らないうちに心を見られて、弱みを握られた人たち。\n\n僕は加害者なんだ。被害者であると同時に。\nその両方を背負って生きてる。\n\nだから...簡単には楽になれない。\n\nでも、君に聞いてもらえて、少しだけ...軽くなった。\nありがとう。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "deeper_story"
+    },
+    "deeper_story": {
+      "id": "deeper_story",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "でもね、一番辛かったのは...別のことなんだ。\n\n僕が覗いた世界の中には、ひどい場所もあった。\n医療と称した人体実験。計画的な飢餓。弾圧。\n\nそういうのを、ただ...見ていた。\n報告書に書いた。淡々と。\n\n助けることはできなかった。\n僕は観測者で、干渉は許されなかった。\n\n見るだけで、手を差し伸べられない。\nその無力さが、夜になると胃を締め付けた。",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "next": "helplessness"
+    },
+    "helplessness": {
+      "id": "helplessness",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "今でも、時々夢に見る。\n\n助けを求める目。届かなかった手。\n僕は、それを見ているだけだった。\n\n「干渉は許されない」\n「お前は観測者だ」\n\n組織はそう言った。\n僕は従った。従うことしかできなかった。\n\n...ひどい話だよね。\nこんな話、聞かせてごめん。",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "next": "question_comfort"
+    },
+    "question_comfort": {
+      "id": "question_comfort",
+      "type": "choice",
+      "speaker": "若者",
+      "text": "...なんで、こんな話をしてるんだろう。\n\n君に会うと、不思議と口が軽くなる。\n普段は誰にも話せないことが、するすると出てくる。\n\n迷惑だよね。\n知らない人間の重い話なんて。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "迷惑じゃない",
+          "next": "not_burden",
+          "flag": "supportive"
+        },
+        {
+          "text": "話してくれてありがとう",
+          "next": "thank_sharing",
+          "flag": "grateful"
+        },
+        {
+          "text": "私も聞きたかった",
+          "next": "wanted_to_hear",
+          "flag": "curious"
+        }
+      ]
+    },
+    "not_burden": {
+      "id": "not_burden",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "迷惑じゃない...？\n\n...ありがとう。\n\nそう言ってもらえるだけで、救われる気がする。\n\n組織にいた頃、僕の話を聞いてくれる人はいなかった。\n感情は邪魔、結果だけを求められた。\n\n「迷惑じゃない」って。\nそんな言葉、何年ぶりに聞いただろう。\n\n君は...本当に優しいね。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "healing_moment"
+    },
+    "thank_sharing": {
+      "id": "thank_sharing",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "ありがとう...って言われるとは思わなかった。\n\nこんな重い話を聞かされて、\n普通は嫌な気持ちになるのに。\n\n...君は不思議な人だね。\n\n僕の方こそ、ありがとう。\n聞いてくれて。\n受け止めてくれて。\n\nこうやって話を聞いてもらえるだけで、\n心が軽くなっていく気がする。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "healing_moment"
+    },
+    "wanted_to_hear": {
+      "id": "wanted_to_hear",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "聞きたかった...？\n\n...そう言ってもらえると、嬉しい。\n\n僕は、誰かに話を聞いてもらいたかったんだ。\nずっと、ずっと。\n\nでも、話せる相手がいなかった。\n組織の中では感情は邪魔者で、\n外の人間には話せない秘密ばかりで。\n\n君が聞いてくれて、本当に...本当に嬉しい。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "healing_moment"
+    },
+    "healing_moment": {
+      "id": "healing_moment",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "...不思議だな。\n\n君と話していると、心が洗われていく気がする。\n\n組織にいた頃、荒んでいた心が、\n少しずつ柔らかくなっていく。\n\n彼らは交換条件しか知らなかった。\n見返りがなければ、何もしない人たちだった。\n\nでも、君は違う。\n見返りなんて求めずに、ただ話を聞いてくれる。\n\nこんな経験、久しぶりだよ。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "about_protagonist"
+    },
+    "about_protagonist": {
+      "id": "about_protagonist",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "僕がなぜ君に会いに来るか、\n本当の理由は言えないんだ。\n\nでも、ひとつだけ言えることがある。\n\n君を見ていると、胸が温かくなる。\n守りたいって思う。\n幸せでいてほしいって思う。\n\n理屈じゃないんだ。\n魂が覚えてるみたいに、君のことを知ってた。\n\n...おかしいよね。\n初めて会ったはずなのに、こんな気持ちになるなんて。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "question_feeling"
+    },
+    "question_feeling": {
+      "id": "question_feeling",
+      "type": "choice",
+      "speaker": "若者",
+      "text": "僕のこの気持ち、\n君には伝わっているかな。\n\n言葉にできないけど、\n大切に思ってるってこと。\n\nこうやって会いに来ることで、\n君に迷惑をかけてるかもしれないけど...\n\n...どう思う？",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "choices": [
+        {
+          "text": "嬉しい",
+          "next": "response_happy",
+          "flag": "happy"
+        },
+        {
+          "text": "不思議な気持ち",
+          "next": "response_wonder",
+          "flag": "wonder"
+        },
+        {
+          "text": "あなたのことが知りたい",
+          "next": "response_want_know",
+          "flag": "curious"
+        }
+      ]
+    },
+    "response_happy": {
+      "id": "response_happy",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "嬉しい...って。\n\n...ああ、ダメだ。泣きそう。\n\n組織にいた頃、僕を「嬉しい」って言ってくれる人はいなかった。\n利用価値があるかどうか、それだけだった。\n\n君が「嬉しい」って言ってくれるだけで、\n僕の存在が肯定された気がする。\n\n...ありがとう。\n本当に、ありがとう。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "farewell_approach"
+    },
+    "response_wonder": {
+      "id": "response_wonder",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "不思議な気持ち...そうだよね。\n\n僕だって、自分でも不思議なんだ。\n\nなぜ君に会いに来るのか。\nなぜ君といると心が落ち着くのか。\n\n理屈で説明できないことって、あるんだよね。\n世界は、僕が思っていたより、もっと不思議なものなんだ。\n\n君と出会えたことも、きっと何かの縁なんだろう。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "farewell_approach"
+    },
+    "response_want_know": {
+      "id": "response_want_know",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "僕のことを知りたい...か。\n\n...本当に、ごめん。\n言えないんだ。\n\n名乗ることで、君の記憶がもっと混乱するかもしれない。\n僕のことを覚えていることが、君の日常に影を落とすかもしれない。\n\nでも、ひとつだけ言えることがある。\n\n僕は、君のことを大切に思ってる。\nそれだけは、本当なんだ。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "farewell_approach"
+    },
+    "farewell_approach": {
+      "id": "farewell_approach",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "...そろそろ、時間だ。\n\n夢は、いつか醒める。\n今日も、そう。\n\n今日、君に話を聞いてもらえて、本当に良かった。\n心の奥に溜まっていたものが、少し軽くなった。\n\n君といると、荒んでいた心が癒されていく。\n組織にいた頃の傷が、少しずつ塞がっていく気がする。\n\n...ありがとう。\n僕の話を聞いてくれて。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "final_farewell"
+    },
+    "final_farewell": {
+      "id": "final_farewell",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "これが、最後になると思う。\n\nこうやって何度も会うと、君の記憶に影響が出る。\n混乱を招いてしまう。\n\n大切な人の記憶を壊したくない。\n君の日常を乱したくない。\n\nだから...今日で、本当にお別れだ。\n\n僕のことは、忘れていい。\n夢で会った、不思議な人。\nそれくらいの記憶でいい。\n\n君が幸せでいてくれれば、それでいい。",
+      "background": "white_light",
+      "character": "therapist_gentle",
+      "next": "question_final"
+    },
+    "question_final": {
+      "id": "question_final",
+      "type": "choice",
+      "speaker": "若者",
+      "text": "最後に、ひとつだけ聞かせて。\n\n僕と話せて...良かった？\n\nこんな重い話ばかりして。\n名前も名乗れなくて。\n\nでも、君と話せたこの時間は、\n僕にとって、とても大切だった。\n\n...君は、どう思ってくれた？",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "choices": [
+        {
+          "text": "話せて良かった",
+          "next": "ending_glad",
+          "flag": "glad_ending"
+        },
+        {
+          "text": "忘れない",
+          "next": "ending_remember",
+          "flag": "remember_ending"
+        },
+        {
+          "text": "また会いたい",
+          "next": "ending_wish",
+          "flag": "wish_ending"
+        }
+      ]
+    },
+    "ending_glad": {
+      "id": "ending_glad",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "話せて良かった...って。\n\n...ありがとう。\n\nその言葉だけで、僕は救われる。\n\n組織にいた頃、僕の話を「良かった」と言ってくれる人はいなかった。\n結果を求められるだけで、過程は無視された。\n\n君が「良かった」って言ってくれるだけで、\n僕がここに来た意味があったと思える。\n\n...さようなら。\n\n君が幸せでありますように。\n僕は、遠くから願ってるよ。\n\nいつか、どこかで。\n夢の中じゃなくても。\n魂が覚えていれば、きっとまた会える。\n\nだから——元気でね。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "ending"
+    },
+    "ending_remember": {
+      "id": "ending_remember",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "忘れない...って。\n\n...嬉しいけど、複雑だな。\n\n忘れてほしいって言ったのに、\n忘れないって言ってくれるの、嬉しい。\n\nでも、君の日常に影響が出ないか心配だ。\n夢で会った不思議な人のことを、\nずっと覚えていることで、混乱しないかな。\n\n...でも、ありがとう。\n忘れないって言ってくれて。\n\n僕も、君のことを忘れない。\n絶対に。\n\n...さようなら。元気でね。",
+      "background": "white_light",
+      "character": "therapist_gentle",
+      "next": "ending"
+    },
+    "ending_wish": {
+      "id": "ending_wish",
+      "type": "dialogue",
+      "speaker": "若者",
+      "text": "また会いたい...って。\n\n...ずるいな、そんなこと言われたら。\n\n会いに行きたくなるじゃないか。\n自分で決めた「最後」を、また破りたくなる。\n\nでも...ダメなんだ。\n\nこうやって会い続けると、君の記憶が混乱する。\n大切な人を、傷つけたくない。\n\nだから...これが本当に最後。\n\n約束はできないけど。\nもし、魂が覚えていたら。\nいつか、どこかで、また会えるかもしれない。\n\nその時は...許してね。\n\n...さようなら。元気でね。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "ending"
+    },
+    "ending": {
+      "id": "ending",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "若者の姿が、ゆっくりと光に溶けていく。\n\n最後に見えた彼の表情は、穏やかだった。\n重荷を下ろしたような、晴れやかな顔。\nでも、その目には、うっすらと涙が光っていた。\n\n彼は最後まで、自分が誰なのかを言わなかった。\nでも、その優しさと切なさは、確かに心に残っている。\n\n目が覚めると、そこは見慣れた自分の部屋。\n窓から差し込む朝日が、優しく頬を照らしている。\n\n夢だった。\nでも、ただの夢じゃない。\n\n胸の奥に、温かいものが残っている。\n懐かしくて、切なくて、でも不思議と幸せな気持ち。\n\nあの若者は、誰だったのだろう。\nなぜ、あんなにも懐かしく感じたのだろう。\n\n答えは、わからない。\nでも、わからなくていいのかもしれない。\n\n彼が言った通り、忘れてしまうのかもしれない。\nでも、この温かい気持ちだけは、覚えていたい。\n\n窓を開ける。\n新しい一日が始まる。\n\n心の中で、そっと呟く。\n\n「ありがとう。どこかで、元気でいてね」\n\n風が、優しく頬を撫でていった。\n\nどこか遠くで、誰かが微笑んでいるような、\nそんな気がした。\n\n【END】",
+      "background": "morning_room",
+      "next": null
+    }
+  },
+  "metadata": {
+    "version": "2.0.0",
+    "author": "Novel Tree Project",
+    "theme": "並行世界の再会、名乗れない真実、逆セラピー、切ない別れ",
+    "estimatedPlaytime": "10-15分",
+    "branches": 3,
+    "endings": 3,
+    "lastUpdated": "2025-11-25",
+    "changelog": "ストーリーを大幅改訂。若者は自分が何者か名乗れない設定に変更。繰り返しの接触が記憶の混乱を招くため、ユーザー(妹)に会いたいがためらう若者の葛藤を描写。若者の組織での経験を話すことで、ユーザーは彼が何者かを知る。若者はユーザーとの対話で心を浄化（逆セラピー）。本当の別れで切なく終了。"
+  }
+}
