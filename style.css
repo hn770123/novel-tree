@@ -198,6 +198,17 @@ body {
     transform: scale(1.05);
 }
 
+/* 後編へのリンク */
+.sequel-link {
+    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffd700;
+    color: #ffd700;
+}
+
+.sequel-link:hover {
+    background: rgba(255, 215, 0, 0.4);
+}
+
 
 
 .game-info {
