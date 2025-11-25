@@ -1,0 +1,437 @@
+/* 全体設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Meiryo', sans-serif;
+    /* ブログ記事のようにスクロール可能に変更 */
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #000;
+    /* 固定配置を解除して通常のフローに変更 */
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    /* iOSのスムーズスクロールを有効化 */
+    -webkit-overflow-scrolling: touch;
+    margin: 0;
+    padding: 0;
+}
+
+/* ゲームコンテナ - ブログ記事のような通常のフロー */
+#game-container {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 背景画像とキャラクターを重ねて表示するためのコンテナ - スクロール時も固定 */
+/* 背景画像は画面の上半分に収まるサイズに縮小 */
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    background-color: #000;
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+    transition: background-image 2s ease-in-out, background-color 2s ease-in-out, opacity 2s ease-in-out;
+    z-index: 1;
+}
+
+/* キャラクター画像 - 背景の中央に固定表示（背景の6割サイズ） */
+#character {
+    position: fixed;
+    top: 25vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    max-width: 480px;
+    height: 30vh;
+    min-height: 200px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease-in-out;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0;
+}
+
+/* テキストボックス - 半透明で背景とキャラクターが透けて見える、固定背景の上に配置 */
+#text-box {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 55vh auto 20px auto;
+    min-height: auto;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #333;
+    padding: 20px 30px 35px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    flex-shrink: 0;
+    overflow: hidden;
+    z-index: 10;
+}
+
+#speaker-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #8b4513;
+    border-bottom: 2px solid #8b4513;
+    padding-bottom: 8px;
+}
+
+#text-content {
+    font-size: 1.1rem;
+    line-height: 2.0;
+    white-space: pre-wrap;
+    color: #333;
+}
+
+#continue-indicator {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+    font-size: 1.5rem;
+    color: #8b4513;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* 選択肢ボックス - 固定背景の上に配置 */
+#choice-box {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto 40px auto;
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+.choice-button {
+    padding: 20px 30px;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #333;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.choice-button:hover {
+    background: rgba(210, 180, 140, 0.95);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.choice-button:active {
+    transform: translateY(0);
+}
+
+/* タイトル画面 */
+#title-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    z-index: 1000;
+}
+
+#title-screen h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    color: #d4af37;
+}
+
+#title-screen .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 50px;
+    opacity: 0.9;
+    color: #e8d5b7;
+}
+
+.menu-button {
+    padding: 15px 50px;
+    font-size: 1.3rem;
+    background: rgba(212, 175, 55, 0.2);
+    border: 2px solid #d4af37;
+    border-radius: 30px;
+    color: #d4af37;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.menu-button:hover {
+    background: rgba(212, 175, 55, 0.4);
+    transform: scale(1.05);
+}
+
+
+
+.game-info {
+    margin-top: 40px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.game-info p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* メニューボタン */
+#menu-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+    z-index: 100;
+}
+
+.menu-btn {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.menu-btn.active {
+    background: rgba(212, 175, 55, 0.8);
+    color: #000;
+}
+
+/* モーダル */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    /* iOSのスムーズスクロールを有効化 */
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* セーブスロット */
+#save-slots {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.save-slot {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-slot:hover {
+    background: rgba(212, 175, 55, 0.2);
+    border-color: #d4af37;
+}
+
+.save-slot.empty {
+    opacity: 0.5;
+}
+
+.save-slot-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.save-slot-info {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* レスポンシブ対応 - モバイルでも同様のブログスタイルを維持 */
+@media (max-width: 768px) {
+    #background {
+        height: 50vh;
+    }
+    
+    #character {
+        width: 60%;
+        height: 30vh;
+        min-height: 200px;
+        top: 25vh;
+    }
+    
+    #text-box {
+        padding: 20px 20px 30px 20px;
+        margin: 55vh 15px 10px 15px;
+    }
+    
+    #text-content {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+    
+    #choice-box {
+        width: 90%;
+        padding: 0 10px;
+        margin: 10px auto 30px auto;
+    }
+    
+    .choice-button {
+        padding: 15px 20px;
+        font-size: 1rem;
+        touch-action: manipulation;
+    }
+    
+    .menu-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    /* メニューボタンは固定位置を維持 */
+    #menu-buttons {
+        position: fixed;
+        z-index: 100;
+    }
+    
+    /* モバイルでのボタンサイズ調整 */
+    .menu-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        margin: 8px;
+        touch-action: manipulation;
+    }
+    
+    #title-screen {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    #title-screen h1 {
+        font-size: 2.5rem;
+    }
+    
+    #title-screen .subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+/* iOS Safari専用の修正 */
+@supports (-webkit-touch-callout: none) {
+    body {
+        /* position: fixedを完全に無効化 */
+        position: static !important;
+        /* iOSのネイティブスクロールを有効化 */
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* フェードイン/アウトアニメーション */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.fade-out {
+    animation: fadeOut 1s ease-in-out;
+}
+
+/* キャラクター初回登場時のスムーズなフェードイン（3秒） */
+.character-fade-in {
+    animation: characterFadeIn 3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes characterFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* エンディング画面 */
+#ending-screen {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+    z-index: 10;
+}
+
+/* 非表示クラス */
+.hidden {
+    display: none !important;
+}

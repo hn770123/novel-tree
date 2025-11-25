@@ -1,0 +1,342 @@
+{
+  "title": "並行の兄影 - 夢の続き",
+  "description": "並行世界の兄との再会。真実と別れ、そして新たな絆の物語",
+  "startNode": "opening",
+  "nodes": {
+    "opening": {
+      "id": "opening",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "夢を見ている。\n\n前にも、この感覚を知っている。\n真っ白な空間。境界のない世界。\nでも今回は、どこか違う。\n\n空気が重い。\n静寂の中に、何かが潜んでいる気配がする。\n\n前に会った青年のことを、ふと思い出す。\n彼は誰だったのだろう。\nなぜ、あんなにも懐かしく感じたのだろう。\n\nそして——\nなぜ、また彼に会いたいと思うのだろう。",
+      "background": "white_room",
+      "next": "reunion_dream"
+    },
+    "reunion_dream": {
+      "id": "reunion_dream",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "ふと、目の前に人影が現れる。\n\n黒い髪、黒い服、眼鏡。\n前に会った、あの青年だ。\n\nでも、今日の彼は——\n少し疲れているように見える。\n\n肩の力が抜けていて、\n眼鏡の奥の瞳には、\n前には見えなかった影が宿っている。\n\nそれでも、彼は静かに微笑んだ。\n懐かしくて、切なくて、\nどこか寂しそうな笑顔。\n\n「また、会えたね」\n\nその声は、心の奥底まで染み込んでくる。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "brother_appears"
+    },
+    "brother_appears": {
+      "id": "brother_appears",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "...驚いた？\n\nまた来てしまった。自分でも、おかしいと思う。\n前回で最後にしようと思ってたのに。\n\nでも、君の顔を見たら...やっぱり来てしまった。\n\n今日は、少しだけ本当のことを話そうと思う。\n前は言えなかったこと。\n言うべきじゃないかもしれないこと。\n\nでも...君には知る権利があると思うから。\n\n聞いてくれる？",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "question_listen"
+    },
+    "question_listen": {
+      "id": "question_listen",
+      "type": "choice",
+      "speaker": "青年",
+      "text": "僕のことを、もっと知りたい？\n\n正直に言うと、話すのは怖い。\n君に嫌われるかもしれない。\n軽蔑されるかもしれない。\n\nでも、嘘をつき続けるのも...もう疲れた。\n\nどうする？",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "聞かせてほしい",
+          "next": "brother_story_start",
+          "flag": "wants_to_listen"
+        },
+        {
+          "text": "無理しなくていい",
+          "next": "brother_hesitate",
+          "flag": "considerate"
+        }
+      ]
+    },
+    "brother_hesitate": {
+      "id": "brother_hesitate",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "...ありがとう。\n\n君は優しいね。いつも、そうだった。\n\n無理しなくていいって言ってくれるの、すごく嬉しい。\nでも...だからこそ、話したいんだ。\n\n君が優しいから。\n僕のことを受け入れてくれるかもしれないから。\n\n少しだけ、聞いてくれる？\n全部じゃなくていい。ほんの少しだけ。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "brother_story_start"
+    },
+    "brother_story_start": {
+      "id": "brother_story_start",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "僕には...特別な力がある。\n\n並行世界を覗くことができる。\n夢を通じて、別の世界の人々を見ることができる。\n\nって言っても、ピンとこないよね。\nSFみたいな話だ。\n\nでも、本当なんだ。\n\n僕は小さい頃からその力を持っていて、\nそのせいで...色々なことがあった。\n\n良いことも、悪いことも。\nいや、正直に言えば...悪いことの方が多かった。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "brother_organization"
+    },
+    "brother_organization": {
+      "id": "brother_organization",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "組織に見つかったんだ。\n\n政府系の、そういう...特殊能力を管理する組織。\n彼らは僕の力を利用したがった。\n\n「国のため」だって言われた。\n「君の協力があれば、多くの人を救える」って。\n\n最初は、それを信じた。\n自分の力が誰かの役に立つなら、いいかもしれないって。\n\n...甘かったよ。\n\n彼らは僕を道具として見ていた。\n僕の見た夢は、情報に変えられて、交渉材料にされた。\n誰かの弱点を暴くために、僕の目が使われた。",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "next": "question_feeling_about_past"
+    },
+    "question_feeling_about_past": {
+      "id": "question_feeling_about_past",
+      "type": "choice",
+      "speaker": "青年",
+      "text": "僕は...人の夢を覗いて、その人の弱みを報告していた。\n\n幼少期のトラウマとか、家族への執着とか。\nそういうものを、言葉にして、紙に書いて、提出した。\n\nひどい話だろう？\n\n...君は、どう思う？",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "それでも、あなたを責められない",
+          "next": "response_understanding",
+          "flag": "understanding"
+        },
+        {
+          "text": "辛かったね",
+          "next": "response_empathy",
+          "flag": "empathetic"
+        },
+        {
+          "text": "どうして逃げなかったの？",
+          "next": "response_question",
+          "flag": "questioning"
+        }
+      ]
+    },
+    "response_understanding": {
+      "id": "response_understanding",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "...責められない？\n\n僕は、人の心を覗いて、それを売ったんだよ？\n自分の自由のために、誰かの弱みを差し出したんだ。\n\n...でも、そう言ってくれるの、嬉しい。\n泣きそうになるくらい、嬉しい。\n\n君は本当に...優しいね。\n\nその優しさに甘えて、もう少しだけ話していい？",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "brother_deeper_truth"
+    },
+    "response_empathy": {
+      "id": "response_empathy",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "辛かった...そうだね。辛かった。\n\nでも、僕だけが辛かったわけじゃない。\n僕が覗いた人たちだって、辛かったはずだ。\n\n知らないうちに心を見られて、\n弱みを握られて、\nそれを交渉に使われて。\n\n僕は加害者なんだ。被害者であると同時に。\n\nその両方を背負って生きてる。\nだから...簡単には楽になれない。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "brother_deeper_truth"
+    },
+    "response_question": {
+      "id": "response_question",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "逃げなかった理由？\n\n...逃げられなかったんだ。\n\n家族がいた。\n組織は、僕の家族を「保護」という名目で管理していた。\n協力すれば面会できる、拒否すれば接触を制限される。\n\n人質みたいなものだった。\n\nそれに、逃げたとしても、どこに行けばいい？\n僕の能力を知ってる組織は、どこにでも手を伸ばせる。\n\n結局...従うしかなかった。\n少なくとも、あの頃の僕には、他の選択肢が見えなかった。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "brother_deeper_truth"
+    },
+    "brother_deeper_truth": {
+      "id": "brother_deeper_truth",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "でもね、一番辛かったのは...別のことなんだ。\n\n僕が覗いた世界の中には、ひどい場所もあった。\n医療と称した人体実験。計画的な飢餓。弾圧。\n\nそういうのを、ただ...見ていた。\n報告書に書いた。淡々と。\n\n助けることはできなかった。\n僕は観測者で、干渉は許されなかった。\n\n見るだけで、手を差し伸べられない。\nその無力さが、夜になると胃を締め付けた。\n\n今でも、時々夢に見る。\n助けを求める目。届かなかった手。\n僕は、それを見ているだけだった。",
+      "background": "memory_blur",
+      "character": "therapist_neutral",
+      "next": "brother_about_protagonist"
+    },
+    "brother_about_protagonist": {
+      "id": "brother_about_protagonist",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "そんな僕が...君を見つけた。\n\n君の世界は、僕のいる世界の「並行」にあたる。\nほんの少しだけ違う、もう一つの可能性。\n\n僕はそこで...君を見た。\n\n最初は、ただの観測対象だった。\nでも、君を見ているうちに、気づいたんだ。\n\n君は...僕の妹だったかもしれない人。\n\n並行世界で、僕に妹がいたら。\nきっと、君みたいな人だっただろうって。\n\nそう思ったら、もう...目が離せなくなった。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "question_about_relationship"
+    },
+    "question_about_relationship": {
+      "id": "question_about_relationship",
+      "type": "choice",
+      "speaker": "青年",
+      "text": "僕はね、君のことを...\n並行世界の妹だと思ってる。\n\nおかしいかな。\n一方的に勝手に、そんなこと決めて。\n\nでも、君を見てると、胸が温かくなるんだ。\n守りたいって思う。\n幸せでいてほしいって思う。\n\n...これって、兄の気持ちなのかな。\n\n君は、どう思う？",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "choices": [
+        {
+          "text": "嬉しい...兄さん",
+          "next": "response_accept_brother",
+          "flag": "accepts_as_brother"
+        },
+        {
+          "text": "不思議な気持ちだけど、嫌じゃない",
+          "next": "response_uncertain",
+          "flag": "uncertain_but_okay"
+        },
+        {
+          "text": "なぜ私なの？",
+          "next": "response_why_me",
+          "flag": "curious"
+        }
+      ]
+    },
+    "response_accept_brother": {
+      "id": "response_accept_brother",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "...兄さん、って。\n\n...ああ、ダメだ。泣きそう。\n\nこんな僕を、そう呼んでくれるの？\n人の夢を覗いて、弱みを売って、\n無力に立ち尽くすことしかできなかった僕を？\n\n...ありがとう。\n\n君にそう呼ばれるだけで、\n僕がしてきたこと全部が、少しだけ...軽くなる気がする。\n\n兄でいさせてくれて、ありがとう。",
+      "background": "white_room",
+      "character": "therapist_smile",
+      "next": "brother_confession"
+    },
+    "response_uncertain": {
+      "id": "response_uncertain",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "嫌じゃない...そっか。\n\nそれだけで、十分だよ。\n\n僕は勝手に君を見つけて、勝手に妹だと思って、\n勝手に会いに来てる。\n\n君にとっては迷惑かもしれない。\n知らない男が突然現れて、兄だなんて言い出して。\n\nでも、嫌じゃないって言ってくれた。\nそれだけで...僕は救われる。\n\nありがとう。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "brother_confession"
+    },
+    "response_why_me": {
+      "id": "response_why_me",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "なぜ君なのか...か。\n\n正直、最初は偶然だった。\n仕事で並行世界を覗いていて、たまたま君を見つけた。\n\nでも、君を見た瞬間、胸が締め付けられた。\n懐かしくて、切なくて、どうしようもなく愛おしくて。\n\n理屈じゃないんだ。\n魂が覚えてるみたいに、君のことを知ってた。\n\nもしかしたら、どこかの並行世界では、\n本当に僕たちは兄妹だったのかもしれない。\n\nそう思わないと、この気持ちの説明がつかない。",
+      "background": "white_room",
+      "character": "therapist_gentle",
+      "next": "brother_confession"
+    },
+    "brother_confession": {
+      "id": "brother_confession",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "でもね、ひとつだけ...告白しなきゃいけないことがある。\n\n僕は、君の夢を覗いていた。\n組織の仕事としてじゃなく、個人的に。\n\n君が眠るとき、僕は時々、窓を開けて君を見ていた。\n\n君の寝顔。\n君の見る夢。\n君の無防備な呼吸。\n\n...気持ち悪いよね。\nストーカーみたいだ。\n\nでも、やめられなかった。\n君を見ていると、僕の中の何かが癒されていく気がして。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "next": "question_about_watching"
+    },
+    "question_about_watching": {
+      "id": "question_about_watching",
+      "type": "choice",
+      "speaker": "青年",
+      "text": "君の許可なく、君を見ていた。\nそれは、組織がやっていたことと同じだ。\n\n僕は組織を憎んでいたのに、\n同じことを君にしていた。\n\n...どう思う？\n怒っていい。軽蔑していい。\nもう会いたくないって言っていい。\n\n全部、受け入れるから。",
+      "background": "white_room",
+      "character": "therapist_neutral",
+      "choices": [
+        {
+          "text": "少し驚いたけど...許す",
+          "next": "response_forgive",
+          "flag": "forgives"
+        },
+        {
+          "text": "複雑な気持ち",
+          "next": "response_complex_feelings",
+          "flag": "complex"
+        },
+        {
+          "text": "なぜ正直に話してくれたの？",
+          "next": "response_why_honest",
+          "flag": "curious_about_honesty"
+        }
+      ]
+    },
+    "response_forgive": {
+      "id": "response_forgive",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "許す...って。\n\n君は、本当に...\n\nありがとう。\nでも、簡単に許さないで。\n僕がしたことは、許されていいことじゃない。\n\nでも...君が許してくれるなら、\n僕は、これからは正しくありたい。\n\n君に恥じない兄でいたい。\n\nだから...これで最後にする。\n君の夢を覗くのは、今日で終わりにする。\n\n自分で決めた。誰に言われたからじゃない。\n僕自身の意志で。",
+      "background": "white_light",
+      "character": "therapist_gentle",
+      "next": "farewell_moment"
+    },
+    "response_complex_feelings": {
+      "id": "response_complex_feelings",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "複雑...そうだよね。当然だ。\n\n僕だって、逆の立場だったら同じ気持ちになると思う。\n\n知らないうちに見られていた。\n無防備なところを、知らない誰かに見られていた。\n\n気持ち悪いよね。怖いよね。\n\nでも、君がそう感じてくれるなら...良かった。\n\nすぐに「許す」って言われるより、\n複雑だって言ってもらえる方が、\n僕にとっては誠実に感じる。\n\nありがとう。正直でいてくれて。",
+      "background": "white_light",
+      "character": "therapist_neutral",
+      "next": "farewell_moment"
+    },
+    "response_why_honest": {
+      "id": "response_why_honest",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "なぜ正直に話したか...か。\n\n組織にいた頃、僕は嘘をついて生きてきた。\n嘘をついて、報告して、また嘘をついて。\n\nそれが、すごく嫌だった。\n\n君に対しては、嘘をつきたくなかった。\n君だけには、本当の僕を見てほしかった。\n\nたとえ嫌われても。\n軽蔑されても。\n\n嘘の僕を好かれるより、\n本当の僕を嫌われる方が、ずっとマシだと思ったんだ。",
+      "background": "white_light",
+      "character": "therapist_gentle",
+      "next": "farewell_moment"
+    },
+    "farewell_moment": {
+      "id": "farewell_moment",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "そろそろ...お別れの時間だ。\n\n今日、君に全部話せて良かった。\n重荷を下ろせた気がする。\n\n僕はこれから、自分の人生を生きていく。\n組織のためじゃなく、誰かのためでもなく。\n自分のために。\n\n君も、そうしてほしい。\n\n誰かの期待に応えるためじゃなく、\n君自身の幸せのために、生きて。\n\n...また会えるかな。\nいや、会わない方がいいのかもしれない。\n\nでも、覚えていて。\nどこかの世界に、君のことを想っている兄がいるって。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "question_final"
+    },
+    "question_final": {
+      "id": "question_final",
+      "type": "choice",
+      "speaker": "青年",
+      "text": "最後に、ひとつだけ聞かせて。\n\n僕と出会えて...良かった？\n\nこんな形で。夢の中で。\n並行世界の、存在するかどうかもわからない兄と。\n\n...良かったって、思ってくれる？",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "choices": [
+        {
+          "text": "出会えて良かった",
+          "next": "ending_happy",
+          "flag": "happy_ending"
+        },
+        {
+          "text": "忘れない",
+          "next": "ending_promise",
+          "flag": "promise_ending"
+        },
+        {
+          "text": "また会いたい",
+          "next": "ending_hope",
+          "flag": "hope_ending"
+        }
+      ]
+    },
+    "ending_happy": {
+      "id": "ending_happy",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "...良かった。\n\nそう言ってもらえて、本当に良かった。\n\n僕の人生は、決して綺麗なものじゃなかった。\n人を傷つけて、自分も傷ついて。\n何が正しかったのか、今でもわからない。\n\nでも、君と出会えたこと。\nそれだけは、間違いなく正しかった。\n\n僕の並行世界の妹。\n大切な、大切な存在。\n\n幸せでいてね。\n君が幸せなら、僕も幸せだから。\n\nさようなら。\n...いや、「また会おう」って言おうか。\n\nいつか、どこかで。\n夢の中じゃなくても。\n魂が覚えていれば、きっとまた会える。\n\nだから——また会おう。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "ending"
+    },
+    "ending_promise": {
+      "id": "ending_promise",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "忘れない...か。\n\nありがとう。それだけで十分だよ。\n\n僕も、君のことを忘れない。\n絶対に。\n\n夢の中で出会った、並行世界の妹。\n僕の心を救ってくれた、大切な人。\n\n記憶は、距離を超える。\n時間を超える。\n世界を超える。\n\n僕たちが互いを覚えている限り、\n繋がりは消えない。\n\nだから、忘れないで。\n僕も、忘れないから。\n\n...さようなら。\nまた、夢で会えたらいいね。",
+      "background": "white_light",
+      "character": "therapist_gentle",
+      "next": "ending"
+    },
+    "ending_hope": {
+      "id": "ending_hope",
+      "type": "dialogue",
+      "speaker": "青年",
+      "text": "また会いたい...って。\n\n...ずるいな、そんなこと言われたら。\n\n会いに行きたくなるじゃないか。\n自分で決めた「最後」を、また破りたくなる。\n\nでも...そうだな。\n約束はできないけど。\n\nもし、どうしても会いたくなったら。\n夢の中で、君を探すかもしれない。\n\nその時は...許してね。\n\n今日は本当に、ありがとう。\n君と話せて、幸せだった。\n\nじゃあね。\n...また会おう。いつか、きっと。",
+      "background": "white_light",
+      "character": "therapist_smile",
+      "next": "ending"
+    },
+    "ending": {
+      "id": "ending",
+      "type": "story",
+      "speaker": "ナレーション",
+      "text": "青年の姿が、ゆっくりと光に溶けていく。\n\n最後に見えた彼の表情は、穏やかだった。\n重荷を下ろしたような、晴れやかな顔。\n\n彼は本当のことを話してくれた。\n辛い過去も、後ろめたい気持ちも、全部。\n\nそして、別れを告げた。\n\n目が覚めると、そこは見慣れた自分の部屋。\n窓から差し込む朝日が、優しく頬を照らしている。\n\n夢だった。\nでも、ただの夢じゃない。\n\n胸の奥に、温かいものが残っている。\n懐かしくて、切なくて、でも幸せな気持ち。\n\n並行世界の兄。\n夢の中だけで会える、大切な存在。\n\n彼は今頃、どこで何をしているのだろう。\n\nきっと、彼も同じことを思っているはずだ。\nこの気持ちは、世界を超えて繋がっている。\n\n窓を開ける。\n新しい一日が始まる。\n\n心の中で、そっと呟く。\n\n「また会おうね、兄さん」\n\n風が、優しく頬を撫でていった。\n\n【END】",
+      "background": "morning_room",
+      "next": null
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "author": "Novel Tree Project",
+    "theme": "並行世界の兄妹、真実の告白、別れと再会の約束",
+    "estimatedPlaytime": "10-15分",
+    "branches": 3,
+    "endings": 3,
+    "lastUpdated": "2025-11-25",
+    "changelog": "続編シナリオを新規作成。前作の青年の正体と過去を明かし、兄妹としての絆を深める物語。"
+  }
+}

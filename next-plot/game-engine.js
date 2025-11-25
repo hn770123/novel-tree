@@ -1,0 +1,500 @@
+/**
+ * ノベルゲームエンジン（続編版）
+ * シナリオデータを読み込み、ブラウザでインタラクティブなノベルゲームを実行する
+ * 親ディレクトリの画像リソースを参照するように設定
+ */
+
+// ゲーム状態管理
+class GameState {
+    // 履歴の最大サイズ
+    static MAX_HISTORY_SIZE = 50;
+
+    constructor() {
+        // 現在のノードID
+        this.currentNodeId = null;
+        // プレイヤーが設定したフラグ（選択の記録）
+        this.flags = [];
+        // 訪問済みノード（履歴）
+        this.visitedNodes = [];
+        // ノード履歴（戻る機能用）
+        this.nodeHistory = [];
+        // シナリオデータ
+        this.scenario = null;
+        // 表示済みキャラクター（初回フェードイン管理用）
+        this.shownCharacters = [];
+    }
+
+    /**
+     * フラグを追加
+     */
+    addFlag(flag) {
+        if (flag && !this.flags.includes(flag)) {
+            this.flags.push(flag);
+        }
+    }
+
+    /**
+     * ノードを訪問済みとしてマーク
+     */
+    visitNode(nodeId) {
+        if (!this.visitedNodes.includes(nodeId)) {
+            this.visitedNodes.push(nodeId);
+        }
+    }
+
+    /**
+     * 履歴に追加
+     */
+    addToHistory(nodeId) {
+        this.nodeHistory.push(nodeId);
+        // 履歴の長さを制限
+        if (this.nodeHistory.length > GameState.MAX_HISTORY_SIZE) {
+            this.nodeHistory.shift();
+        }
+    }
+
+    /**
+     * 履歴から1つ戻る
+     */
+    goBack() {
+        if (this.nodeHistory.length > 0) {
+            return this.nodeHistory.pop();
+        }
+        return null;
+    }
+}
+
+// ゲームエンジン本体
+class NovelGameEngine {
+    // レスポンシブデザインのブレークポイント（CSSのmax-width: 768pxと一致）
+    // 768px以下の画面幅をモバイルビューとして扱う
+    static MOBILE_BREAKPOINT = 768;
+    // スクロール遅延時間（ミリ秒）
+    static SCROLL_DELAY_MS = 100;
+
+    constructor() {
+        this.state = new GameState();
+        this.isReady = false;
+        // 画像フォーマットの設定（拡張子）
+        this.imageFormat = 'JPG';
+        // 親ディレクトリの画像を参照するためのベースパス
+        this.imageBasePath = '../';
+        // タイプライター効果の設定
+        this.typewriterSpeed = 50; // ミリ秒/文字
+        this.isTyping = false; // タイピング中かどうか
+        this.typingTimeout = null; // タイピングのタイムアウトID
+        this.fullText = ''; // 完全なテキスト
+        this.initElements();
+        this.loadScenario();
+    }
+
+    /**
+     * DOM要素の初期化
+     */
+    initElements() {
+        // 主要な要素
+        this.elements = {
+            background: document.getElementById('background'),
+            character: document.getElementById('character'),
+            textBox: document.getElementById('text-box'),
+            speakerName: document.getElementById('speaker-name'),
+            textContent: document.getElementById('text-content'),
+            continueIndicator: document.getElementById('continue-indicator'),
+            choiceBox: document.getElementById('choice-box'),
+            titleScreen: document.getElementById('title-screen'),
+            startButton: document.getElementById('start-button'),
+            menuButtons: document.getElementById('menu-buttons'),
+            backButton: document.getElementById('back-button'),
+            titleButton: document.getElementById('title-button'),
+            endingScreen: document.getElementById('ending-screen'),
+            endingTitleButton: document.getElementById('ending-title-button')
+        };
+
+        // イベントリスナーの設定
+        this.setupEventListeners();
+    }
+
+    /**
+     * イベントリスナーの設定
+     */
+    setupEventListeners() {
+        // スタートボタン
+        this.elements.startButton.addEventListener('click', () => this.startGame());
+
+        // テキストボックスクリックで次へ
+        this.elements.textBox.addEventListener('click', () => this.onTextBoxClick());
+
+        // メニューボタン
+        this.elements.backButton.addEventListener('click', () => this.goBackToPreviousNode());
+        this.elements.titleButton.addEventListener('click', () => this.returnToTitle());
+        
+        // エンディング画面のタイトルボタン
+        this.elements.endingTitleButton.addEventListener('click', () => this.returnToTitleFromEnding());
+    }
+
+    /**
+     * シナリオデータの読み込み
+     */
+    async loadScenario() {
+        try {
+            const response = await fetch('scenario.json');
+            this.state.scenario = await response.json();
+            this.isReady = true;
+            console.log('シナリオを読み込みました:', this.state.scenario.title);
+        } catch (error) {
+            console.error('シナリオの読み込みに失敗しました:', error);
+            alert('シナリオファイルの読み込みに失敗しました。');
+        }
+    }
+
+    /**
+     * ゲーム開始
+     */
+    startGame() {
+        if (!this.isReady) {
+            alert('シナリオの読み込み中です。しばらくお待ちください。');
+            return;
+        }
+
+        // タイトル画面を非表示
+        this.elements.titleScreen.style.display = 'none';
+
+        // 最初のノードから開始
+        this.state.currentNodeId = this.state.scenario.startNode;
+        this.displayCurrentNode();
+    }
+
+    /**
+     * 現在のノードを表示
+     */
+    displayCurrentNode() {
+        const node = this.state.scenario.nodes[this.state.currentNodeId];
+        if (!node) {
+            console.error('ノードが見つかりません:', this.state.currentNodeId);
+            return;
+        }
+
+        // 次のシナリオに移ったら一番上にスクロールして戻る
+        // 古いブラウザのためのフォールバック付き
+        setTimeout(() => {
+            try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            } catch (e) {
+                // 古いブラウザではオプションをサポートしていないためシンプルなスクロールを使用
+                window.scrollTo(0, 0);
+            }
+        }, NovelGameEngine.SCROLL_DELAY_MS);
+
+        // ノードを訪問済みとしてマーク
+        this.state.visitNode(this.state.currentNodeId);
+
+        // 背景を設定
+        if (node.background) {
+            this.setBackground(node.background);
+        }
+
+        // キャラクターを設定
+        if (node.character) {
+            this.setCharacter(node.character);
+        } else {
+            this.hideCharacter();
+        }
+
+        // エンディングの場合、エンディングボタンを表示
+        if (this.state.currentNodeId === 'ending') {
+            this.displayEnding(node);
+        } else {
+            // エンディング画面を非表示
+            this.elements.endingScreen.style.display = 'none';
+            // ノードタイプに応じて表示
+            if (node.type === 'choice') {
+                this.displayChoice(node);
+            } else {
+                this.displayText(node);
+            }
+        }
+    }
+
+    /**
+     * 背景画像を設定
+     * ストーリーの進行に応じて背景色を段階的に変化させる
+     */
+    setBackground(backgroundId) {
+        const imagePath = `${this.imageBasePath}${backgroundId}.${this.imageFormat}`;
+        this.elements.background.style.backgroundImage = `url('${imagePath}')`;
+        
+        // ストーリーの進行度に応じて背景の明度を調整
+        const brightness = this.calculateBrightness(this.state.currentNodeId);
+        this.elements.background.style.backgroundColor = brightness;
+    }
+
+    /**
+     * ノードIDに基づいて背景の明度を計算
+     * 続編では異なる色調を使用
+     */
+    calculateBrightness(nodeId) {
+        // ストーリーの主要な進行段階を定義（続編用の新しい色調）
+        const progressionStages = {
+            // 開始 - 深い藍色
+            'opening': '#1a1a2e',
+            'reunion_dream': '#1a1a2e',
+            'brother_appears': '#202040',
+            // 対話段階 - 紫がかった色
+            'brother_greeting': '#2a2a4a',
+            'question_time': '#333366',
+            'question_past': '#404080',
+            // 記憶段階 - より明るい紫
+            'memory_childhood': '#4d4d99',
+            'memory_growth': '#5a5ab3',
+            'memory_separation': '#6666cc',
+            // 選択段階 - 温かみのある色
+            'question_present': '#7a7acc',
+            'question_future': '#8b8be0',
+            // 啓示段階 - 金色がかった色
+            'revelation_truth': '#9999cc',
+            'revelation_bond': '#a0a0d0',
+            // 別れ段階 - 白に近づく
+            'farewell_moment': '#b3b3e0',
+            'promise': '#ccccee',
+            'ending': '#e0e0ff'
+        };
+
+        // 指定されたノードの明度を返す。定義されていない場合はデフォルト値を使用
+        return progressionStages[nodeId] || '#1a1a2e';
+    }
+
+    /**
+     * キャラクター画像を設定
+     * 初回登場時は3秒のスムーズなフェードイン、2回目以降は即座に表示
+     */
+    setCharacter(characterId) {
+        const imagePath = `${this.imageBasePath}${characterId}.${this.imageFormat}`;
+        this.elements.character.style.backgroundImage = `url('${imagePath}')`;
+        
+        // キャラクターが初めて表示される場合
+        if (!this.state.shownCharacters.includes(characterId)) {
+            // アニメーションクラスを削除してリセット
+            this.elements.character.classList.remove('character-fade-in');
+            // 強制的にリフロー（再レンダリング）を実行してアニメーションをリセット
+            void this.elements.character.offsetWidth;
+            // アニメーションクラスを追加してフェードイン開始
+            this.elements.character.classList.add('character-fade-in');
+            // 表示済みリストに追加
+            this.state.shownCharacters.push(characterId);
+        } else {
+            // 2回目以降は即座に表示
+            this.elements.character.style.opacity = '1';
+            this.elements.character.classList.remove('character-fade-in');
+        }
+    }
+
+    /**
+     * キャラクターを非表示
+     */
+    hideCharacter() {
+        this.elements.character.style.opacity = '0';
+        this.elements.character.classList.remove('character-fade-in');
+    }
+
+    /**
+     * タイプライター効果でテキストを表示
+     * テキストの長さに応じてテキストボックスのサイズも拡張
+     */
+    typewriterEffect(text, callback) {
+        this.isTyping = true;
+        this.fullText = text;
+        this.elements.continueIndicator.style.display = 'none';
+        this.elements.textContent.textContent = '';
+        
+        let currentIndex = 0;
+        const typeNextChar = () => {
+            if (currentIndex < text.length) {
+                this.elements.textContent.textContent = text.substring(0, currentIndex + 1);
+                currentIndex++;
+                this.typingTimeout = setTimeout(typeNextChar, this.typewriterSpeed);
+            } else {
+                this.isTyping = false;
+                this.elements.continueIndicator.style.display = 'block';
+                if (callback) callback();
+            }
+        };
+        
+        typeNextChar();
+    }
+
+    /**
+     * タイプライター効果をスキップして全文を表示
+     */
+    skipTypewriter() {
+        if (this.isTyping) {
+            clearTimeout(this.typingTimeout);
+            this.typingTimeout = null;
+            this.elements.textContent.textContent = this.fullText;
+            this.isTyping = false;
+            this.elements.continueIndicator.style.display = 'block';
+        }
+    }
+
+    /**
+     * テキストを表示（story/dialogueタイプ）
+     */
+    displayText(node) {
+        // 選択肢ボックスを非表示
+        this.elements.choiceBox.style.display = 'none';
+
+        // テキストボックスを表示
+        this.elements.textBox.style.display = 'block';
+        this.elements.speakerName.textContent = node.speaker || '';
+        
+        // タイプライター効果でテキストを表示
+        this.typewriterEffect(node.text || '');
+    }
+
+    /**
+     * 選択肢を表示（choiceタイプ）
+     */
+    displayChoice(node) {
+        // テキストボックスを表示（質問文）
+        this.elements.textBox.style.display = 'block';
+        this.elements.speakerName.textContent = node.speaker || '';
+        this.elements.textContent.textContent = node.text || '';
+        this.elements.continueIndicator.style.display = 'none';
+
+        // 選択肢ボックスを表示
+        this.elements.choiceBox.style.display = 'flex';
+        this.elements.choiceBox.innerHTML = '';
+
+        // 選択肢ボタンを生成
+        node.choices.forEach((choice, index) => {
+            const button = document.createElement('button');
+            button.className = 'choice-button';
+            button.textContent = choice.text;
+            button.addEventListener('click', () => this.onChoiceSelected(choice));
+            this.elements.choiceBox.appendChild(button);
+        });
+    }
+
+    /**
+     * 選択肢が選ばれた時の処理
+     */
+    onChoiceSelected(choice) {
+        // フラグを設定
+        if (choice.flag) {
+            this.state.addFlag(choice.flag);
+        }
+
+        // 次のノードへ移動
+        this.moveToNode(choice.next);
+    }
+
+    /**
+     * テキストボックスがクリックされた時の処理
+     */
+    onTextBoxClick() {
+        const node = this.state.scenario.nodes[this.state.currentNodeId];
+        
+        // 選択肢表示中は無視
+        if (node.type === 'choice') {
+            return;
+        }
+
+        // タイピング中ならスキップ
+        if (this.isTyping) {
+            this.skipTypewriter();
+            return;
+        }
+
+        // 次のノードへ移動
+        if (node.next) {
+            this.moveToNode(node.next);
+        }
+    }
+
+    /**
+     * 指定されたノードへ移動
+     */
+    moveToNode(nodeId) {
+        // 現在のノードを履歴に追加
+        if (this.state.currentNodeId) {
+            this.state.addToHistory(this.state.currentNodeId);
+        }
+        this.state.currentNodeId = nodeId;
+        this.displayCurrentNode();
+    }
+
+    /**
+     * 前のノードに戻る
+     */
+    goBackToPreviousNode() {
+        const previousNodeId = this.state.goBack();
+        if (previousNodeId) {
+            this.state.currentNodeId = previousNodeId;
+            this.displayCurrentNode();
+        }
+        // 履歴がない場合は何もしない（無言で処理）
+    }
+
+    /**
+     * エンディングを表示
+     */
+    displayEnding(node) {
+        // テキストを表示
+        this.displayText(node);
+        // エンディング画面のボタンを表示
+        this.elements.endingScreen.style.display = 'block';
+    }
+
+    /**
+     * タイトルに戻る
+     */
+    returnToTitle() {
+        if (confirm('タイトルに戻りますか？\n（進行状況は失われます）')) {
+            // シナリオデータを保持
+            const scenario = this.state.scenario;
+            // ゲーム状態をリセット
+            this.state = new GameState();
+            this.state.scenario = scenario;
+            
+            // タイトル画面を表示
+            this.elements.titleScreen.style.display = 'flex';
+            
+            // 画面をクリア
+            this.elements.textBox.style.display = 'none';
+            this.elements.choiceBox.style.display = 'none';
+            this.elements.endingScreen.style.display = 'none';
+            this.hideCharacter();
+        }
+    }
+
+    /**
+     * エンディングからタイトルに戻る（確認なし）
+     */
+    returnToTitleFromEnding() {
+        // シナリオデータを保持
+        const scenario = this.state.scenario;
+        // ゲーム状態をリセット
+        this.state = new GameState();
+        this.state.scenario = scenario;
+        
+        // タイトル画面を表示
+        this.elements.titleScreen.style.display = 'flex';
+        
+        // 画面をクリア
+        this.elements.textBox.style.display = 'none';
+        this.elements.choiceBox.style.display = 'none';
+        this.elements.endingScreen.style.display = 'none';
+        this.hideCharacter();
+        
+        // 一番上にスクロール
+        window.scrollTo(0, 0);
+    }
+}
+
+// ゲームエンジンの初期化
+let game;
+window.addEventListener('DOMContentLoaded', () => {
+    game = new NovelGameEngine();
+});
