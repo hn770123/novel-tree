@@ -1,4 +1,10 @@
 /* 全体設定 */
+:root {
+    /* テーマカラー（金色） */
+    --theme-color: #8b4513;
+    --theme-accent: #d4af37;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -91,8 +97,8 @@ body {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 15px;
-    color: #8b4513;
-    border-bottom: 2px solid #8b4513;
+    color: var(--theme-color);
+    border-bottom: 2px solid var(--theme-color);
     padding-bottom: 8px;
 }
 
@@ -108,7 +114,7 @@ body {
     bottom: 15px;
     right: 30px;
     font-size: 1.5rem;
-    color: #8b4513;
+    color: var(--theme-color);
     animation: blink 1s infinite;
 }
 
@@ -171,7 +177,7 @@ body {
     font-size: 3.5rem;
     margin-bottom: 10px;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-    color: #d4af37;
+    color: var(--theme-accent);
 }
 
 #title-screen .subtitle {
@@ -185,9 +191,9 @@ body {
     padding: 15px 50px;
     font-size: 1.3rem;
     background: rgba(212, 175, 55, 0.2);
-    border: 2px solid #d4af37;
+    border: 2px solid var(--theme-accent);
     border-radius: 30px;
-    color: #d4af37;
+    color: var(--theme-accent);
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 10px;
@@ -296,7 +302,7 @@ body {
 
 .save-slot:hover {
     background: rgba(212, 175, 55, 0.2);
-    border-color: #d4af37;
+    border-color: var(--theme-accent);
 }
 
 .save-slot.empty {
